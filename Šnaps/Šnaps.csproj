@@ -5,7 +5,7 @@
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
     <ProjectGuid>{B7154184-A9C6-40E9-8777-3BCF4090CE09}</ProjectGuid>
-    <OutputType>WinExe</OutputType>
+    <OutputType>Exe</OutputType>
     <RootNamespace>Šnaps</RootNamespace>
     <AssemblyName>Šnaps</AssemblyName>
     <TargetFrameworkVersion>v4.7.2</TargetFrameworkVersion>
@@ -32,6 +32,9 @@
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
+  <PropertyGroup>
+    <StartupObject />
+  </PropertyGroup>
   <ItemGroup>
     <Reference Include="System" />
     <Reference Include="System.Core" />
@@ -46,14 +49,39 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Adut.cs" />
+    <Compile Include="Card Dealer.cs" />
+    <Compile Include="Card.cs" />
+    <Compile Include="CardHolder.cs" />
+    <Compile Include="CardStorage.cs" />
+    <Compile Include="DeckOfCards.cs" />
     <Compile Include="Form1.cs">
       <SubType>Form</SubType>
     </Compile>
     <Compile Include="Form1.Designer.cs">
       <DependentUpon>Form1.cs</DependentUpon>
     </Compile>
+    <Compile Include="Game.cs" />
+    <Compile Include="GeneralPlayer.cs" />
+    <Compile Include="Hand.cs" />
+    <Compile Include="ICardStorage.cs" />
+    <Compile Include="NewFolder1\ClosedGameLogic.cs" />
+    <Compile Include="NewFolder1\IGameLogic.cs" />
+    <Compile Include="NewFolder1\Manager.cs" />
+    <Compile Include="NewFolder1\IObserver.cs" />
+    <Compile Include="NewFolder1\NormalGameLogic.cs" />
+    <Compile Include="NewFolder1\ThrowManager.cs" />
+    <Compile Include="NewFolder1\ThrowObserver.cs" />
+    <Compile Include="NewFolder1\TurnManager.cs" />
+    <Compile Include="NewFolder1\TurnObserver.cs" />
+    <Compile Include="Oponent.cs" />
+    <Compile Include="IOponentAI.cs" />
+    <Compile Include="OponentAI_PlaysFirst.cs" />
+    <Compile Include="OponentAI_PlaysSecond.cs" />
+    <Compile Include="Player.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="TableCard.cs" />
     <EmbeddedResource Include="Form1.resx">
       <DependentUpon>Form1.cs</DependentUpon>
     </EmbeddedResource>
@@ -176,5 +204,6 @@
   <ItemGroup>
     <None Include="Properties\Cardbacks\zadnja strana plava.png" />
   </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>
