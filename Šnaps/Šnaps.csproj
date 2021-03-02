@@ -62,26 +62,26 @@
       <DependentUpon>Form1.cs</DependentUpon>
     </Compile>
     <Compile Include="Game.cs" />
-    <Compile Include="GeneralPlayer.cs" />
+    <Compile Include="GameMechanism.cs" />
     <Compile Include="Hand.cs" />
-    <Compile Include="ICardStorage.cs" />
+    <Compile Include="IAbstractCollection.cs" />
+    <Compile Include="ICollectable.cs" />
+    <Compile Include="IPlayerMechanics.cs" />
+    <Compile Include="Iterator.cs" />
+    <Compile Include="ITurnStartingPlayer.cs" />
+    <Compile Include="ITableObservable.cs" />
+    <Compile Include="ITableObserver.cs" />
     <Compile Include="NewFolder1\ClosedGameLogic.cs" />
-    <Compile Include="NewFolder1\IGameLogic.cs" />
-    <Compile Include="NewFolder1\Manager.cs" />
-    <Compile Include="NewFolder1\IObserver.cs" />
+    <Compile Include="NewFolder1\GameLogic.cs" />
     <Compile Include="NewFolder1\NormalGameLogic.cs" />
-    <Compile Include="NewFolder1\ThrowManager.cs" />
-    <Compile Include="NewFolder1\ThrowObserver.cs" />
-    <Compile Include="NewFolder1\TurnManager.cs" />
-    <Compile Include="NewFolder1\TurnObserver.cs" />
     <Compile Include="Oponent.cs" />
-    <Compile Include="IOponentAI.cs" />
-    <Compile Include="OponentAI_PlaysFirst.cs" />
-    <Compile Include="OponentAI_PlaysSecond.cs" />
     <Compile Include="Player.cs" />
+    <Compile Include="Participants.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="TableCard.cs" />
+    <Compile Include="RealPlayer.cs" />
+    <Compile Include="Referee.cs" />
+    <Compile Include="TableCardHolder.cs" />
     <EmbeddedResource Include="Form1.resx">
       <DependentUpon>Form1.cs</DependentUpon>
     </EmbeddedResource>

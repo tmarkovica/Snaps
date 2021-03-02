@@ -6,8 +6,8 @@ using System.Threading.Tasks;
 
 namespace Šnaps
 {
-    interface IOponentAI
+    interface ITurnStartingPlayer
     {
-        Card GetCardToPlay(Hand hand);
+        void YourTurnToPLay();
     }
 }

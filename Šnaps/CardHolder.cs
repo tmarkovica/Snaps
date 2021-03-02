@@ -23,7 +23,7 @@ namespace Šnaps
             this.card = null;
         }
 
-        public void PlaceCard(Card card)
+        virtual public void PlaceCard(Card card)
         {
             if (this.card == null)
             {
@@ -36,6 +36,7 @@ namespace Šnaps
         {
             this.card = null;
             this.sender.Image = null;
+            this.sender.Visible = false;
         }
 
         public Card TakeCard()
@@ -114,5 +115,10 @@ namespace Šnaps
             }
         }
 
+        public void SetHolderEnabled(bool state)
+        {
+            sender.Enabled = state;
+            Console.WriteLine(GetCardName() + "_" + GetCardColor() + ".Enabled = " + sender.Enabled); ;
+        }
     }
 }

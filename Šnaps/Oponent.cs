@@ -7,57 +7,30 @@ using System.Windows.Forms;
 
 namespace Šnaps
 {
-    class Oponent : GeneralPlayer
+    class Oponent : Player//, ITableObserver//, ITurnStartingPlayer
     {
-        private IOponentAI oponentAI;
+        public Oponent(Hand hand) : base(hand) { }
 
-        public Oponent() : base() { }
-
-        public void SetAI(IOponentAI opnentAI)
+        override public void UpdateAboutOponentsCard(Card card)
         {
-            this.oponentAI = oponentAI;
+            Console.WriteLine("Player played: " + card.GetCardImageName() + " and it's oponents time to throw!");
+
+            //base.PlayCard()
         }
 
-        public void PlayCounterCard()
+        public Card GetPlayedCard(PictureBox sender) // samo za testiranje
         {
-            //base.PlayCard(this.oponentAI.PlayCard(GetHand(), GetGameMechanism().GetCardOnTable()));
+            return GetHand().GetCardFrom(sender);
         }
 
-        public void PlayCard() // protivnik baca prvi ovaj Turn
+        public void PlayCard(PictureBox sender) // samo za testiranje
         {
-            // prije nego zaigra možda ima dovoljno bodova za završiti igru
-            if (HaveIColectedEnoughPoints())
-            {
-                MessageBox.Show("Winner: Protivnik");
-                return;
-            }
-            else
-            {
-                base.ExchangeAdut();
-                CloseGame();
-
-
-                base.PlayCard(this.oponentAI.GetCardToPlay(GetHand()));
-            }
+            base.PlayCard(GetPlayedCard(sender));
         }
 
-        public override void CloseGame()
+        override public void YourTurnToPLay()
         {
-            if (CanICloseGame())
-            {/*
-                if (this.oponentAI.ShouldOponentCloseGame(GetHand()))
-                {
-                    base.CloseGame();
-                }*/
-            }
-        }
-
-        public bool CanICloseGame()
-        {/*
-            if (!GetGameMechanism().IsMyTurn())
-                if (GetGameMechanism().IsGameClosed())
-                    return true;*/
-            return false;
+            
         }
     }
 }

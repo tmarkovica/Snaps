@@ -6,24 +6,20 @@ using System.Threading.Tasks;
 
 namespace Šnaps
 {
-    class ClosedGameLogic : IGameLogic
+    class ClosedGameLogic : GameLogic
     {
-        string adutColor;
         public bool myTurn { get; set; }
 
-        public ClosedGameLogic(string adutColor)
-        {
-            this.adutColor = adutColor;
-        }
+        public ClosedGameLogic(string adutColor) : base(adutColor) { }
 
-        public bool IsFirstCardWinner(Card card1, Card card2)
+        override public bool IsFirstCardWinner(Card card1, Card card2)
         {
             if (IsCardAdut(card1))
             {
                 if (IsCardAdut(card2))
                 {
                     Console.WriteLine("Adut1 <> Adut2");
-                    return CompareCardValues(card1, card2);
+                    return AreCardsSameColor(card1, card2);
                 }
                 else
                 {
@@ -40,10 +36,10 @@ namespace Šnaps
                 }
                 else
                 {
-                    if (CompareCardColors(card1, card2))
+                    if (AreCardsSameColor(card1, card2))
                     {
                         Console.WriteLine("Card1 <> Card2 - u istoj boji");
-                        return CompareCardValues(card1, card2);
+                        return IsFirstCardHigherValue(card1, card2);
                     }
                     else
                     {
@@ -54,37 +50,9 @@ namespace Šnaps
             }
         }
 
-        public bool IsFirstCardStronger(Card card1, Card card2)
+        override public bool IsFirstCardStronger(Card card1, Card card2)
         {
-            throw new NotImplementedException();
-        }
-
-        public bool CompareCardColors(Card card1, Card card2)
-        {
-            if (card1.GetCardValue() > card2.GetCardValue())
-            {
-                return true;
-            }
-            else
-            {
-                return false;
-            }
-        }
-
-        public bool CompareCardValues(Card card1, Card card2)
-        {
-            if (String.Equals(card1.GetCardColor(), card2.GetCardColor()))
-                return true;
-            else
-                return false;
-        }
-
-        public bool IsCardAdut(Card card)
-        {
-            if (String.Equals(card.GetCardColor(), adutColor))
-                return true;
-            else
-                return false;
+            return true;
         }
     }
 }

@@ -8,8 +8,10 @@ namespace Šnaps
 {
     interface IObserver
     {
-        void Update(Manager manager);
+        void Update(IManager manager);
 
-        void Start(Manager manager);
+        void Start(IManager manager);
+
+        void UpdateAIForOponentsThrow(IOponentAI oponentAI);
     }
 }

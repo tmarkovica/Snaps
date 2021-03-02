@@ -263,9 +263,9 @@ namespace Šnaps.Properties {
         /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
-        internal static System.Drawing.Bitmap srce {
+        internal static System.Drawing.Bitmap Srce {
             get {
-                object obj = ResourceManager.GetObject("srce", resourceCulture);
+                object obj = ResourceManager.GetObject("Srce", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }
@@ -273,9 +273,9 @@ namespace Šnaps.Properties {
         /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
-        internal static System.Drawing.Bitmap tikva {
+        internal static System.Drawing.Bitmap Tikva {
             get {
-                object obj = ResourceManager.GetObject("tikva", resourceCulture);
+                object obj = ResourceManager.GetObject("Tikva", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }
@@ -363,9 +363,9 @@ namespace Šnaps.Properties {
         /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
-        internal static System.Drawing.Bitmap zelje {
+        internal static System.Drawing.Bitmap Zelje {
             get {
-                object obj = ResourceManager.GetObject("zelje", resourceCulture);
+                object obj = ResourceManager.GetObject("Zelje", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }
@@ -373,9 +373,9 @@ namespace Šnaps.Properties {
         /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
-        internal static System.Drawing.Bitmap zir {
+        internal static System.Drawing.Bitmap Žir {
             get {
-                object obj = ResourceManager.GetObject("zir", resourceCulture);
+                object obj = ResourceManager.GetObject("Žir", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }

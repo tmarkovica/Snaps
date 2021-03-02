@@ -6,22 +6,22 @@ using System.Threading.Tasks;
 
 namespace Šnaps
 {
-    class TurnObserver : IObserver
+    class TurnObserver //: IObserver
     {
         private int turnCounter = 0;
 
         private IGameLogic gameLogic = new NormalGameLogic();
 
-        public void Start(Manager manager)
+        public void Start(IManager manager)
         {
 
         }
 
-        public void Update(Manager manager)
+        public void Update(IManager manager)
         {
             turnCounter++;
 
-            manager.Process(gameLogic);
+            //manager.Process(gameLogic);
 
         }
     }

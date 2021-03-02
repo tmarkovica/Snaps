@@ -5,6 +5,7 @@ using System.Data;
 using System.Drawing;
 using System.Linq;
 using System.Text;
+using System.Threading;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 
@@ -16,23 +17,47 @@ namespace Šnaps
         {
             InitializeComponent();
 
+            Hand myHand = GetHand(pictureBox1, pictureBox2, pictureBox3, pictureBox4, pictureBox5);
+            Hand oponentsHand = GetHand(pictureBox6, pictureBox7, pictureBox8, pictureBox9, pictureBox10);
 
-            game = new Game();
+
+            this.player = new RealPlayer(myHand);
+            this.oponent = new Oponent(oponentsHand);
+
+            this.referee = new Referee();
+
+            this.player.SeatPlayer(this.referee.GetPlayerHisSeat(pictureBoxMyPlayedCard));
+            oponent.SeatPlayer(this.referee.GetPlayerHisSeat(pictureBoxOponentsPlayedCard));
+
+
+            Participants participants = new Participants();
+            participants.Add(this.player);
+            participants.Add(oponent);
+
+            participants.Referee = referee;
+
+            this.game = new Game(participants);
 
             SetControls();
 
-            game.Deal();
+            this.game.Start();
+        }
+
+        RealPlayer player;
+        Oponent oponent;
+
+        Referee referee;
+
+        private Hand GetHand(PictureBox pb1, PictureBox pb2, PictureBox pb3, PictureBox pb4, PictureBox pb5)
+        {
+            List<PictureBox> pictureBoxes = new List<PictureBox>() { pb1, pb2, pb3, pb4, pb5 };
+            return new Hand(pictureBoxes);
         }
 
         public void SetControls()
         {
-            List<PictureBox> pictureBoxesMyCards = new List<PictureBox>() { pictureBox1, pictureBox2, pictureBox3, pictureBox4, pictureBox5 };
-            List<PictureBox> pictureBoxesOponentsCards = new List<PictureBox>() { pictureBox6, pictureBox7, pictureBox8, pictureBox9, pictureBox10 };
-
-            this.game.SetMyCard_PictureBoxes(pictureBoxesMyCards);
-            this.game.SetOponentCard_PictureBoxes(pictureBoxesOponentsCards);
-            this.game.SetCardsPlayed_PictureBoxes(pictureBoxMyPlayedCard, pictureBoxOponentsPlayedCard);
-            this.game.SetAdut_PictureBox(pictureBoxAdut);
+            this.game.SetAdut_PictureBox(pictureBoxAdut, pictureBoxAdutColor);
+            this.game.SetTurnLabel(labelTurn);
         }
 
         Game game;
@@ -73,7 +98,9 @@ namespace Šnaps
                     {
                         //pictureBoxMyPlayedCard.Image = pictureBox.Image;
 
-                        this.game.Play(sender as PictureBox);
+                        //this.game.Play(sender as PictureBox);
+
+                        this.player.PlayCard(sender as PictureBox); //not yet implemented
                     }
                 }
             }
@@ -85,10 +112,17 @@ namespace Šnaps
                     if (pictureBoxMyPlayedCard.Location.Y + 31 + this.Top < MousePosition.Y && pictureBoxMyPlayedCard.Location.Y + 31 + this.Top + pictureBoxMyPlayedCard.Size.Height > MousePosition.Y)
                     {
                         //pictureBoxMyPlayedCard.Image = pictureBox.Image;
-                        this.game.Play(sender as PictureBox);
+                        //this.game.Play(sender as PictureBox);
+
+                        this.player.PlayCard(sender as PictureBox); //not yet implemented
                     }
                 }
             }
+        }
+
+        private void ExchangeAdut(object sender, EventArgs e)
+        {
+            //this.player.ExchangeAdut(sender as PictureBox); //not yet implemented
         }
 
         private void MouseUp_PlayCard(object sender, MouseEventArgs e)
@@ -108,7 +142,25 @@ namespace Šnaps
 
         private void MouseDoubleClick_PlayCard(object sender, MouseEventArgs e)
         {
-            this.game.Play(sender as PictureBox);
+            //this.game.Play(sender as PictureBox);
+
+            this.player.PlayCard(sender as PictureBox);
+        }
+        
+        private void newGameToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            Application.Restart();
+        }
+
+        private void exitToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            Application.Exit();
+        }
+
+
+        private void pictureBox10_MouseDoubleClick(object sender, MouseEventArgs e) // samo za testiranje
+        {
+            this.oponent.PlayCard(sender as PictureBox);
         }
     }
 }

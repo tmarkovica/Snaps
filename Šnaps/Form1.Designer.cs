@@ -30,10 +30,12 @@ namespace Šnaps
         private void InitializeComponent()
         {
             this.panel1 = new System.Windows.Forms.Panel();
+            this.pictureBoxDeck = new System.Windows.Forms.PictureBox();
+            this.pictureBoxAdut = new System.Windows.Forms.PictureBox();
             this.panel2 = new System.Windows.Forms.Panel();
+            this.pictureBoxAdutColor = new System.Windows.Forms.PictureBox();
             this.labelTurn = new System.Windows.Forms.Label();
             this.label1 = new System.Windows.Forms.Label();
-            this.labelAdutColor = new System.Windows.Forms.Label();
             this.richTextBox2 = new System.Windows.Forms.RichTextBox();
             this.richTextBox1 = new System.Windows.Forms.RichTextBox();
             this.pictureBox5 = new System.Windows.Forms.PictureBox();
@@ -48,9 +50,15 @@ namespace Šnaps
             this.pictureBox8 = new System.Windows.Forms.PictureBox();
             this.pictureBox9 = new System.Windows.Forms.PictureBox();
             this.pictureBox10 = new System.Windows.Forms.PictureBox();
-            this.pictureBoxAdut = new System.Windows.Forms.PictureBox();
+            this.menuStrip1 = new System.Windows.Forms.MenuStrip();
+            this.fileToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.newGameToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.exitToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.panel1.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBoxDeck)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBoxAdut)).BeginInit();
             this.panel2.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBoxAdutColor)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox5)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox4)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox3)).BeginInit();
@@ -63,11 +71,12 @@ namespace Šnaps
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox8)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox9)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox10)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.pictureBoxAdut)).BeginInit();
+            this.menuStrip1.SuspendLayout();
             this.SuspendLayout();
             // 
             // panel1
             // 
+            this.panel1.Controls.Add(this.pictureBoxDeck);
             this.panel1.Controls.Add(this.pictureBoxAdut);
             this.panel1.Controls.Add(this.panel2);
             this.panel1.Controls.Add(this.pictureBox5);
@@ -83,30 +92,57 @@ namespace Šnaps
             this.panel1.Controls.Add(this.pictureBox9);
             this.panel1.Controls.Add(this.pictureBox10);
             this.panel1.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.panel1.Location = new System.Drawing.Point(0, 0);
+            this.panel1.Location = new System.Drawing.Point(0, 24);
             this.panel1.Name = "panel1";
-            this.panel1.Size = new System.Drawing.Size(1648, 897);
+            this.panel1.Size = new System.Drawing.Size(1648, 873);
             this.panel1.TabIndex = 0;
             this.panel1.Click += new System.EventHandler(this.panel1_Click);
             // 
+            // pictureBoxDeck
+            // 
+            this.pictureBoxDeck.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
+            this.pictureBoxDeck.Location = new System.Drawing.Point(1331, 309);
+            this.pictureBoxDeck.Name = "pictureBoxDeck";
+            this.pictureBoxDeck.Size = new System.Drawing.Size(213, 128);
+            this.pictureBoxDeck.TabIndex = 17;
+            this.pictureBoxDeck.TabStop = false;
+            // 
+            // pictureBoxAdut
+            // 
+            this.pictureBoxAdut.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
+            this.pictureBoxAdut.Location = new System.Drawing.Point(1156, 309);
+            this.pictureBoxAdut.Name = "pictureBoxAdut";
+            this.pictureBoxAdut.Size = new System.Drawing.Size(128, 213);
+            this.pictureBoxAdut.TabIndex = 16;
+            this.pictureBoxAdut.TabStop = false;
+            this.pictureBoxAdut.Click += new System.EventHandler(this.ExchangeAdut);
+            // 
             // panel2
             // 
+            this.panel2.Controls.Add(this.pictureBoxAdutColor);
             this.panel2.Controls.Add(this.labelTurn);
             this.panel2.Controls.Add(this.label1);
-            this.panel2.Controls.Add(this.labelAdutColor);
             this.panel2.Controls.Add(this.richTextBox2);
             this.panel2.Controls.Add(this.richTextBox1);
             this.panel2.Dock = System.Windows.Forms.DockStyle.Left;
             this.panel2.Location = new System.Drawing.Point(0, 0);
             this.panel2.Name = "panel2";
-            this.panel2.Size = new System.Drawing.Size(275, 897);
+            this.panel2.Size = new System.Drawing.Size(275, 873);
             this.panel2.TabIndex = 15;
+            // 
+            // pictureBoxAdutColor
+            // 
+            this.pictureBoxAdutColor.Location = new System.Drawing.Point(90, 12);
+            this.pictureBoxAdutColor.Name = "pictureBoxAdutColor";
+            this.pictureBoxAdutColor.Size = new System.Drawing.Size(58, 53);
+            this.pictureBoxAdutColor.TabIndex = 5;
+            this.pictureBoxAdutColor.TabStop = false;
             // 
             // labelTurn
             // 
             this.labelTurn.AutoSize = true;
             this.labelTurn.Font = new System.Drawing.Font("Microsoft Sans Serif", 18F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.labelTurn.Location = new System.Drawing.Point(93, 123);
+            this.labelTurn.Location = new System.Drawing.Point(74, 122);
             this.labelTurn.Name = "labelTurn";
             this.labelTurn.Size = new System.Drawing.Size(74, 29);
             this.labelTurn.TabIndex = 4;
@@ -116,20 +152,11 @@ namespace Šnaps
             // 
             this.label1.AutoSize = true;
             this.label1.Font = new System.Drawing.Font("Microsoft Sans Serif", 18F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label1.Location = new System.Drawing.Point(12, 16);
+            this.label1.Location = new System.Drawing.Point(12, 25);
             this.label1.Name = "label1";
             this.label1.Size = new System.Drawing.Size(72, 29);
             this.label1.TabIndex = 3;
             this.label1.Text = "Adut:";
-            // 
-            // labelAdutColor
-            // 
-            this.labelAdutColor.AutoSize = true;
-            this.labelAdutColor.Location = new System.Drawing.Point(108, 28);
-            this.labelAdutColor.Name = "labelAdutColor";
-            this.labelAdutColor.Size = new System.Drawing.Size(35, 13);
-            this.labelAdutColor.TabIndex = 2;
-            this.labelAdutColor.Text = "label1";
             // 
             // richTextBox2
             // 
@@ -152,7 +179,7 @@ namespace Šnaps
             // 
             this.pictureBox5.Anchor = System.Windows.Forms.AnchorStyles.Bottom;
             this.pictureBox5.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
-            this.pictureBox5.Location = new System.Drawing.Point(1017, 672);
+            this.pictureBox5.Location = new System.Drawing.Point(1017, 648);
             this.pictureBox5.Name = "pictureBox5";
             this.pictureBox5.Size = new System.Drawing.Size(128, 213);
             this.pictureBox5.TabIndex = 14;
@@ -166,7 +193,7 @@ namespace Šnaps
             // 
             this.pictureBox4.Anchor = System.Windows.Forms.AnchorStyles.Bottom;
             this.pictureBox4.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
-            this.pictureBox4.Location = new System.Drawing.Point(883, 672);
+            this.pictureBox4.Location = new System.Drawing.Point(883, 648);
             this.pictureBox4.Name = "pictureBox4";
             this.pictureBox4.Size = new System.Drawing.Size(128, 213);
             this.pictureBox4.TabIndex = 13;
@@ -180,7 +207,7 @@ namespace Šnaps
             // 
             this.pictureBox3.Anchor = System.Windows.Forms.AnchorStyles.Bottom;
             this.pictureBox3.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
-            this.pictureBox3.Location = new System.Drawing.Point(749, 672);
+            this.pictureBox3.Location = new System.Drawing.Point(749, 648);
             this.pictureBox3.Name = "pictureBox3";
             this.pictureBox3.Size = new System.Drawing.Size(128, 213);
             this.pictureBox3.TabIndex = 12;
@@ -194,7 +221,7 @@ namespace Šnaps
             // 
             this.pictureBox2.Anchor = System.Windows.Forms.AnchorStyles.Bottom;
             this.pictureBox2.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
-            this.pictureBox2.Location = new System.Drawing.Point(616, 672);
+            this.pictureBox2.Location = new System.Drawing.Point(616, 648);
             this.pictureBox2.Name = "pictureBox2";
             this.pictureBox2.Size = new System.Drawing.Size(128, 213);
             this.pictureBox2.TabIndex = 11;
@@ -208,7 +235,7 @@ namespace Šnaps
             // 
             this.pictureBox1.Anchor = System.Windows.Forms.AnchorStyles.Bottom;
             this.pictureBox1.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
-            this.pictureBox1.Location = new System.Drawing.Point(481, 672);
+            this.pictureBox1.Location = new System.Drawing.Point(481, 648);
             this.pictureBox1.Name = "pictureBox1";
             this.pictureBox1.Size = new System.Drawing.Size(128, 213);
             this.pictureBox1.TabIndex = 10;
@@ -222,7 +249,7 @@ namespace Šnaps
             // 
             this.pictureBoxMyPlayedCard.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
             this.pictureBoxMyPlayedCard.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
-            this.pictureBoxMyPlayedCard.Location = new System.Drawing.Point(691, 362);
+            this.pictureBoxMyPlayedCard.Location = new System.Drawing.Point(707, 347);
             this.pictureBoxMyPlayedCard.Name = "pictureBoxMyPlayedCard";
             this.pictureBoxMyPlayedCard.Size = new System.Drawing.Size(128, 213);
             this.pictureBoxMyPlayedCard.TabIndex = 7;
@@ -246,6 +273,7 @@ namespace Šnaps
             this.pictureBox6.Size = new System.Drawing.Size(128, 213);
             this.pictureBox6.TabIndex = 9;
             this.pictureBox6.TabStop = false;
+            this.pictureBox6.MouseDoubleClick += new System.Windows.Forms.MouseEventHandler(this.pictureBox10_MouseDoubleClick);
             // 
             // pictureBox7
             // 
@@ -256,6 +284,7 @@ namespace Šnaps
             this.pictureBox7.Size = new System.Drawing.Size(128, 213);
             this.pictureBox7.TabIndex = 8;
             this.pictureBox7.TabStop = false;
+            this.pictureBox7.MouseDoubleClick += new System.Windows.Forms.MouseEventHandler(this.pictureBox10_MouseDoubleClick);
             // 
             // pictureBox8
             // 
@@ -266,6 +295,7 @@ namespace Šnaps
             this.pictureBox8.Size = new System.Drawing.Size(128, 213);
             this.pictureBox8.TabIndex = 7;
             this.pictureBox8.TabStop = false;
+            this.pictureBox8.MouseDoubleClick += new System.Windows.Forms.MouseEventHandler(this.pictureBox10_MouseDoubleClick);
             // 
             // pictureBox9
             // 
@@ -276,6 +306,7 @@ namespace Šnaps
             this.pictureBox9.Size = new System.Drawing.Size(128, 213);
             this.pictureBox9.TabIndex = 6;
             this.pictureBox9.TabStop = false;
+            this.pictureBox9.MouseDoubleClick += new System.Windows.Forms.MouseEventHandler(this.pictureBox10_MouseDoubleClick);
             // 
             // pictureBox10
             // 
@@ -286,15 +317,40 @@ namespace Šnaps
             this.pictureBox10.Size = new System.Drawing.Size(128, 213);
             this.pictureBox10.TabIndex = 5;
             this.pictureBox10.TabStop = false;
+            this.pictureBox10.MouseDoubleClick += new System.Windows.Forms.MouseEventHandler(this.pictureBox10_MouseDoubleClick);
             // 
-            // pictureBoxAdut
+            // menuStrip1
             // 
-            this.pictureBoxAdut.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
-            this.pictureBoxAdut.Location = new System.Drawing.Point(1156, 309);
-            this.pictureBoxAdut.Name = "pictureBoxAdut";
-            this.pictureBoxAdut.Size = new System.Drawing.Size(128, 213);
-            this.pictureBoxAdut.TabIndex = 16;
-            this.pictureBoxAdut.TabStop = false;
+            this.menuStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.fileToolStripMenuItem});
+            this.menuStrip1.Location = new System.Drawing.Point(0, 0);
+            this.menuStrip1.Name = "menuStrip1";
+            this.menuStrip1.Size = new System.Drawing.Size(1648, 24);
+            this.menuStrip1.TabIndex = 1;
+            this.menuStrip1.Text = "menuStrip1";
+            // 
+            // fileToolStripMenuItem
+            // 
+            this.fileToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.newGameToolStripMenuItem,
+            this.exitToolStripMenuItem});
+            this.fileToolStripMenuItem.Name = "fileToolStripMenuItem";
+            this.fileToolStripMenuItem.Size = new System.Drawing.Size(37, 20);
+            this.fileToolStripMenuItem.Text = "File";
+            // 
+            // newGameToolStripMenuItem
+            // 
+            this.newGameToolStripMenuItem.Name = "newGameToolStripMenuItem";
+            this.newGameToolStripMenuItem.Size = new System.Drawing.Size(132, 22);
+            this.newGameToolStripMenuItem.Text = "New Game";
+            this.newGameToolStripMenuItem.Click += new System.EventHandler(this.newGameToolStripMenuItem_Click);
+            // 
+            // exitToolStripMenuItem
+            // 
+            this.exitToolStripMenuItem.Name = "exitToolStripMenuItem";
+            this.exitToolStripMenuItem.Size = new System.Drawing.Size(132, 22);
+            this.exitToolStripMenuItem.Text = "Exit";
+            this.exitToolStripMenuItem.Click += new System.EventHandler(this.exitToolStripMenuItem_Click);
             // 
             // Form1
             // 
@@ -302,13 +358,18 @@ namespace Šnaps
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(1648, 897);
             this.Controls.Add(this.panel1);
+            this.Controls.Add(this.menuStrip1);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
+            this.MainMenuStrip = this.menuStrip1;
             this.Name = "Form1";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "Form1";
             this.panel1.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBoxDeck)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBoxAdut)).EndInit();
             this.panel2.ResumeLayout(false);
             this.panel2.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBoxAdutColor)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox5)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox4)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox3)).EndInit();
@@ -321,8 +382,10 @@ namespace Šnaps
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox8)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox9)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox10)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.pictureBoxAdut)).EndInit();
+            this.menuStrip1.ResumeLayout(false);
+            this.menuStrip1.PerformLayout();
             this.ResumeLayout(false);
+            this.PerformLayout();
 
         }
 
@@ -344,10 +407,15 @@ namespace Šnaps
         private System.Windows.Forms.Panel panel2;
         private System.Windows.Forms.Label labelTurn;
         private System.Windows.Forms.Label label1;
-        private System.Windows.Forms.Label labelAdutColor;
         private System.Windows.Forms.RichTextBox richTextBox2;
         private System.Windows.Forms.RichTextBox richTextBox1;
         private System.Windows.Forms.PictureBox pictureBoxAdut;
+        private System.Windows.Forms.PictureBox pictureBoxAdutColor;
+        private System.Windows.Forms.MenuStrip menuStrip1;
+        private System.Windows.Forms.ToolStripMenuItem fileToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem newGameToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem exitToolStripMenuItem;
+        private System.Windows.Forms.PictureBox pictureBoxDeck;
     }
 }
 

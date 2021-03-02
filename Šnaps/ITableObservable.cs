@@ -3,11 +3,13 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using System.Windows.Forms;
 
 namespace Šnaps
 {
-    class TurnManager //: Manager, IObserver
+    interface ITableObservable
     {
+        void Attach(ITableObserver observer);
+        void Notify();
+        void PlaceCard(Card card);
     }
 }

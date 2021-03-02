@@ -7,7 +7,7 @@ using System.Windows.Forms;
 
 namespace Šnaps
 {    
-    class CardStorage : ICardStorage
+    class CardStorage
     {
         private List<CardHolder> cardsHolder;
 

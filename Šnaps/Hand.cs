@@ -7,53 +7,60 @@ using System.Windows.Forms;
 
 namespace Šnaps
 {
-    class Hand : CardStorage
+    class Hand
     {
-        private int score = 0;
+        List<CardHolder> holders;
 
-        public int GetScore() { return score; }
-
-        public void AddPoints(int points) { score += points; }
-
-        //*************
-
-        public Card PullPlayedCard(PictureBox sender)
+        public Hand(List<PictureBox> pictureBoxes) 
         {
-            List<CardHolder> cardsHolder = base.GetCardStorage();
+            this.holders = new List<CardHolder>();
+            foreach (PictureBox pictureBox in pictureBoxes)
+                this.holders.Add(new CardHolder(pictureBox));
+        }
 
-            foreach (CardHolder holder in cardsHolder)
+        /*public void CreateHolders(List<PictureBox> pictureBoxes)
+        {
+            foreach (PictureBox pictureBox in pictureBoxes)
+                this.holders.Add(new CardHolder(pictureBox));
+        }*/
+
+        public void AddCard(Card card)
+        {
+            foreach (CardHolder holder in holders)
+            {
+                if (holder.IsHolderEmpty())
+                {
+                    holder.PlaceCard(card);
+                    return;
+                }
+            }
+        }
+
+        public Card GetCardFrom(PictureBox sender)
+        {
+            foreach (CardHolder holder in holders)
             {
                 if (holder.IsSenderMatchingTheHolder(sender))
                 {
                     return holder.TakeCard();
                 }
             }
-
             return null;
         }
 
-        public void RemoveCardFromHolder(Card card)
+        public void MakeSelectionOfCardsThatAreAllowedToBePlayed(Card card)
         {
-            List<CardHolder> cardsHolder = base.GetCardStorage();
-
-            foreach (CardHolder holder in cardsHolder)
-            {
-                holder.RemoveThisCardFromHolder(card);
-            }
+            if (card == null)
+                foreach (CardHolder holder in holders)
+                    holder.SetHolderEnabled(true);
         }
 
-        public List<Card> GetCardsInHand()
+        public void SetEnabled(bool state)
         {
-            List<Card> cards = new List<Card>();
-
-            List<CardHolder> cardsHolder = base.GetCardStorage();
-
-            foreach (CardHolder holder in cardsHolder)
+            foreach (CardHolder holder in holders)
             {
-                cards.Add(holder.TakeCard());
+                holder.SetHolderEnabled(state);
             }
-
-            return cards;
         }
     }
 }
