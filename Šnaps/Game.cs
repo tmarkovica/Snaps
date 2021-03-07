@@ -10,8 +10,7 @@ namespace Šnaps
     class Game
     {
         Participants participants;
-
-
+        Iterator iterator;
 
         public Game(Participants participants)
         { 
@@ -24,26 +23,20 @@ namespace Šnaps
 
         private void IntroduceGameMechanics()
         {
-            Iterator iterator = this.participants.CreateIterator();
+            this.iterator = this.participants.CreateIterator();
 
             this.gameMechanism = new GameMechanism(iterator);
         }
 
-        public void SetAdut_PictureBox(PictureBox pictureBoxAdut, PictureBox pictureBoxAdutColor)
-        {
-            Adut.CreateHolder(pictureBoxAdut, pictureBoxAdutColor);
+        public void SetDealer(CardDealerManager dealer) { this.gameMechanism.SetDealer(dealer); }
 
-
-        }
         public void SetTurnLabel(Label labelTurn)
         {
-
+            this.iterator.SetTurnLabel(labelTurn);
         }
 
         public void Start()
         {
-            this.gameMechanism.DealCards();
-
             this.gameMechanism.StartRound();
         }
     }

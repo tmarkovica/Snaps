@@ -9,7 +9,7 @@ using System.Windows.Forms;
 namespace Šnaps
 {
 
-    class CardHolder
+    class CardHolder : IStorageable
     {
         private PictureBox sender { get; set; }
 
@@ -36,16 +36,16 @@ namespace Šnaps
         {
             this.card = null;
             this.sender.Image = null;
-            this.sender.Visible = false;
         }
 
-        public Card TakeCard()
+        virtual public Card TakeCard()
         {
             Card temp = null;
 
             if (!IsHolderEmpty()) // this.card != null
             {
                 temp = this.card;
+                
                 ClearHolder();
             }
             return temp;
@@ -56,14 +56,14 @@ namespace Šnaps
             if (this.card != null) 
             {
                 this.sender.Image = this.card.GetImage();
-                this.sender.Enabled = true;
-                this.sender.Visible = true;
+                //this.sender.Enabled = true;
+                SetHolderVisible(true);
             }
             else
             {
                 this.sender.Image = null;
-                this.sender.Enabled = false;
-                this.sender.Visible = false;
+                //this.sender.Enabled = false;
+                SetHolderVisible(false);
             }
         }
 
@@ -115,10 +115,13 @@ namespace Šnaps
             }
         }
 
-        public void SetHolderEnabled(bool state)
+        public void SetHolderVisible(bool state) { this.sender.Visible = state; }
+
+        public void SetHolderEnabled(bool state) { sender.Enabled = state; }
+
+        public string GetHolderStats()
         {
-            sender.Enabled = state;
-            Console.WriteLine(GetCardName() + "_" + GetCardColor() + ".Enabled = " + sender.Enabled); ;
+            return GetCardName() + "_" + GetCardColor() + ": Enabled = " + sender.Enabled + "; Visible = " + sender.Visible;
         }
     }
 }

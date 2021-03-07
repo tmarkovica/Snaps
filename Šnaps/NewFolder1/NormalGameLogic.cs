@@ -8,12 +8,37 @@ using System.Threading;
 
 namespace Šnaps
 {
-    class NormalGameLogic : GameLogic
+    static class NormalGameLogic// : GameLogic
     {
-        public NormalGameLogic(string adutColor) : base(adutColor) { }
-
-        override public bool IsFirstCardWinner(Card card1, Card card2)
+        static public bool IsCardAdut(Card card)
         {
+            if (String.Equals(card.GetCardColor(), AdutColor.GetColor()))
+                return true;
+            else
+                return false;
+        }
+
+        static public bool AreCardsSameColor(Card card1, Card card2)
+        {
+            if (String.Equals(card1.GetCardColor(), card2.GetCardColor()))
+                return true;
+            else
+                return false;
+        }
+
+        static public bool IsFirstCardHigherValue(Card card1, Card card2)
+        {
+            if (card1.GetCardValue() > card2.GetCardValue())
+                return true;
+            else
+                return false;
+        }
+
+        static public bool IsFirstCardWinner(Card card1, Card card2)
+        {
+            Console.WriteLine("----------");
+            Console.WriteLine("Comparing: " + card1.GetCardImageName() + " vs " + card2.GetCardImageName());
+
             if (IsCardAdut(card1))
             {
                 if (IsCardAdut(card2))
@@ -48,25 +73,6 @@ namespace Šnaps
                     }
                 }
             }
-        }
-
-        override public bool IsFirstCardStronger(Card card1, Card card2)
-        {
-            List<Card> cards = new List<Card>() { card1, card2 };
-
-            if (IsCardAdut(cards[0]))
-                if (IsCardAdut(cards[1]))
-                    return IsFirstCardHigherValue(card1, card2);
-                else
-                    return true;
-            else
-                if (IsCardAdut(card2))
-                    return false;
-                else
-                        if (AreCardsSameColor(card1, card2))
-                    return IsFirstCardHigherValue(card1, card2);
-                else
-                    return false;
         }
     }
 }

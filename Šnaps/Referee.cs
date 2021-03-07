@@ -11,7 +11,16 @@ namespace Šnaps
     {
         List<ICollectable> tableCardholders;
 
-        public Referee() { this.tableCardholders = new List<ICollectable>(); }
+        public int Points
+        {
+            get;
+            private set;
+        }
+
+        public Referee() 
+        { 
+            this.tableCardholders = new List<ICollectable>();
+        }
 
         public TableCardHolder GetPlayerHisSeat(PictureBox pictureBox)
         {
@@ -26,24 +35,60 @@ namespace Šnaps
             foreach (ICollectable cardFromHolder in tableCardholders)
             { 
                 cards.Add(cardFromHolder.PullCard());
-                Console.WriteLine(cards[0].GetCardImageName() + " vs " + cards[1].GetCardImageName());
             }
- 
+
             return cards;
+        }
+
+        private void CollectPoints(List<Card> cards)
+        {
+            int points = 0;
+            foreach (Card card in cards)
+                points += card.GetCardValue();
+
+            this.Points = points;
         }
 
         public int GetTurnWinnerIndex()
         {
             List<Card> cards = CollectCards();
 
-            NormalGameLogic ngm = new NormalGameLogic(Adut.GetAdutColor());
+            this.CollectPoints(cards);
 
-            Console.WriteLine("We are comparing: " + cards[0].GetCardImageName() + " vs " + cards[1].GetCardImageName());
+            if (this.GameClosed == false)
+                if (NormalGameLogic.IsFirstCardWinner(cards[0], cards[1]))
+                    return 0;
+                else
+                    return 1;
 
-            if (ngm.IsFirstCardWinner(cards[0], cards[1]))
-                return 0;
-            else
-                return 1;
+            return 0;
+
+            /*else
+                if (ClosedGameLogic.IsFirstCardWinner(cards[0], cards[1]))
+                    return 0;
+                else
+                    return 1;*/
+
+        }
+
+        //private GameLogic gameLogic;
+
+        //
+
+        public bool GameClosed
+        {
+            get;
+            set;
+        }
+
+        public void CloseGame() 
+        {
+            this.GameClosed = true;
+        }
+
+        public void GameStarts()
+        {
+            //this.gameLogic = new NormalGameLogic(AdutColor.GetColor());
         }
     }
 }

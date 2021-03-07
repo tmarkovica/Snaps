@@ -7,7 +7,7 @@ using System.Windows.Forms;
 
 namespace Šnaps
 {
-    class Hand
+    class Hand// : IExchangable
     {
         List<CardHolder> holders;
 
@@ -17,12 +17,6 @@ namespace Šnaps
             foreach (PictureBox pictureBox in pictureBoxes)
                 this.holders.Add(new CardHolder(pictureBox));
         }
-
-        /*public void CreateHolders(List<PictureBox> pictureBoxes)
-        {
-            foreach (PictureBox pictureBox in pictureBoxes)
-                this.holders.Add(new CardHolder(pictureBox));
-        }*/
 
         public void AddCard(Card card)
         {
@@ -42,7 +36,11 @@ namespace Šnaps
             {
                 if (holder.IsSenderMatchingTheHolder(sender))
                 {
-                    return holder.TakeCard();
+                    Card card = holder.TakeCard();
+
+                    holder.SetHolderVisible(false);
+
+                    return card;
                 }
             }
             return null;
@@ -51,16 +49,52 @@ namespace Šnaps
         public void MakeSelectionOfCardsThatAreAllowedToBePlayed(Card card)
         {
             if (card == null)
-                foreach (CardHolder holder in holders)
-                    holder.SetHolderEnabled(true);
+                SetHandEnabled(true);
+            else
+                SetHandEnabled(true); // implementirati !!!!!
         }
 
-        public void SetEnabled(bool state)
+        public void SetHandEnabled(bool state)
         {
             foreach (CardHolder holder in holders)
             {
                 holder.SetHolderEnabled(state);
             }
+        }
+
+        /*
+        public void ClearHand()
+        {
+            Console.WriteLine("-----------");
+            foreach (CardHolder holder in holders)
+            {
+                holder.ClearHolder();
+                holder.SetHolderVisible(true);
+                Console.WriteLine(holder.GetHolderStats());
+            }
+            Console.WriteLine("-----------");
+        }
+         * */
+
+        public void ResetHand()
+        {
+            Console.WriteLine("-----------");
+            foreach (CardHolder holder in holders)
+            {
+                holder.ClearHolder();
+                holder.SetHolderVisible(false);
+                Console.WriteLine(holder.GetHolderStats());
+            }
+            Console.WriteLine("-----------");
+        }
+
+        public CardHolder GetHolderOfAdutExchanger()
+        {
+            foreach (CardHolder holder in holders)
+                if (String.Equals(holder.GetCardName(), "Dečko"))
+                    if (String.Equals(holder.GetCardColor(), AdutColor.GetColor()))
+                        return holder;
+            return null;
         }
     }
 }

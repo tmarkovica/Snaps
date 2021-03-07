@@ -3,76 +3,109 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows.Forms;
 
 namespace Šnaps
 {
     class GameMechanism : IPlayerMechanics
     {
         Iterator iterator; // turn manager
-        CardDealer cardDealer;
+        CardDealerManager dealer;
+
+        private bool gameClosed = false;
 
         public GameMechanism(Iterator iterator) 
         {
             this.iterator = iterator;
 
             this.iterator.IntroduceGameMechanicsToPlayers(this);
-
-            this.cardDealer = CardDealer.Instance;
         }
 
-        public void DealCards()
+        public void SetDealer(CardDealerManager dealer)
         {
-            //this.cardDealer.Shuffle();
-            Adut adut = Adut.GetInstance();
-            adut.PlaceCard(this.cardDealer.PullCard());
+            this.dealer = dealer;
+        }
 
-            int numberOfDrawIterations = 5 * this.iterator.NumberOfParticipants;
+        private Card DrawCard()
+        {
+            if (gameClosed == true)
+                return null;
 
-            for (int i = 0; i < numberOfDrawIterations; i++)
+            return this.dealer.PullCard(); ;
+        }
+
+        private void DealCards()
+        {
+            this.dealer.Shuffle();
+
+            for (int i = 0; i < 5; i++)
             {
-                DrawCard(this.cardDealer.PullCard());
+                for (int j = 0; j < this.iterator.NumberOfParticipants; j++)
+                    this.iterator.CurrentPlayer.DrawCard();
             }
         }
 
-        public void DrawCard(Card card)
+        public Card GetCardFromDealer()
         {
-            if (card == null)
-                card = Adut.GetInstance().PullCard();
-
-            this.iterator.CurrentPlayer.DrawCard(card);
+            return DrawCard();
         }
 
 
-
+        // Collegues
         List<ITurnStartingPlayer> players = new List<ITurnStartingPlayer>();
 
         public void AddPlayer(ITurnStartingPlayer player) { this.players.Add(player); }
-            
-        public void EnoughPoints(Player player)
-        {
-            //new GameRound(this.players);
-        }
 
-        public void Plays(Player player)
-        {
-            //player.PlayCard(); // allowPlay
+        //
+        Label turnLabel;
 
-            foreach (Player pl in this.players)
-            {
-                if (pl == player) { }
-
-            }
-        }
+        public void SetTurnLabel(Label label) { this.turnLabel = label; }
 
         public void StartRound()
         {
-            this.iterator.CurrentPlayer.YourTurnToPLay();
+            ResetPlayerHands();
+
+            this.DealCards();
+            this.gameClosed = false;
+
+            this.iterator.NewRound();
+        }
+
+        public void PrepNextPlayer()
+        {
             this.iterator.PrepNextPlayer();
         }
 
-        public void DrawCards()
+        public void EnoughPoints()
         {
-            //foreach ()
+            StartRound();
+        }
+
+        private void ResetPlayerHands()
+        {
+            for (int j = 0; j < this.iterator.NumberOfParticipants; j++)
+                this.iterator.CurrentPlayer.ResetHand();
+
+            this.gameClosed = false;
+        }
+
+        public void ExchangeAdut(IStorageable holder)
+        {
+            if (this.iterator.HaveFourTurnsPassed() == false) 
+            {
+                if (holder != null)
+                    this.dealer.ExchangeAdut(holder);
+            }
+        }
+
+        public void CloseGame()
+        {
+            if (this.iterator.HaveFourTurnsPassed() == false)
+            {
+                this.iterator.CloseGame();
+                this.dealer.CloseGame();
+                this.gameClosed = true;
+            }
         }
     }
 }

@@ -49,11 +49,14 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Adut.cs" />
-    <Compile Include="Card Dealer.cs" />
+    <Compile Include="AdutControl.cs" />
+    <Compile Include="AdutColor.cs" />
+    <Compile Include="CardDealer.cs" />
     <Compile Include="Card.cs" />
+    <Compile Include="CardDealerManager.cs" />
     <Compile Include="CardHolder.cs" />
     <Compile Include="CardStorage.cs" />
+    <Compile Include="DeckControl.cs" />
     <Compile Include="DeckOfCards.cs" />
     <Compile Include="Form1.cs">
       <SubType>Form</SubType>
@@ -66,6 +69,8 @@
     <Compile Include="Hand.cs" />
     <Compile Include="IAbstractCollection.cs" />
     <Compile Include="ICollectable.cs" />
+    <Compile Include="IExchangable.cs" />
+    <Compile Include="IStorageable.cs" />
     <Compile Include="IPlayerMechanics.cs" />
     <Compile Include="Iterator.cs" />
     <Compile Include="ITurnStartingPlayer.cs" />

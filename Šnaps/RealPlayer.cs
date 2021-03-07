@@ -7,36 +7,90 @@ using System.Windows.Forms;
 
 namespace Šnaps
 {
-    class RealPlayer : Player //, ITableObserver
+    class RealPlayer : Player
     {
         public RealPlayer(Hand hand) : base(hand) { }
 
-        public Card GetPlayedCard(PictureBox sender)
+        private Card GetCardFromSender(PictureBox sender)
         {
             return GetHand().GetCardFrom(sender);
         }
 
         public void PlayCard(PictureBox sender)
         {
-            Card card = GetPlayedCard(sender);
-            Console.WriteLine("You played: " + card.GetCardImageName());
+            this.cardThrown = true;
 
-            //base.PlayCard(GetPlayedCard(sender)); //original
-            base.PlayCard(card);
+            GetHand().SetHandEnabled(false);
 
-            GetHand().SetEnabled(false);
+            base.PlayCard(GetCardFromSender(sender));
         }
 
-        override public void YourTurnToPLay()
-        {
-            GetHand().MakeSelectionOfCardsThatAreAllowedToBePlayed(null);
+        bool throwingFirst = false;
+        bool cardThrown = false;
 
-            Console.WriteLine("override void YourTurnToPlay()");
+
+        override public void YourTurnToPLay(Label label)
+        {
+            //GetHand().MakeSelectionOfCardsThatAreAllowedToBePlayed(null);
+            GetHand().SetHandEnabled(true);
+
+            label.Text = "Your turn";
+            label.BackColor = System.Drawing.Color.LightBlue;
+
+            
+
+            this.throwingFirst = true;
+            this.cardThrown = false;
+
+            Console.WriteLine("override void YourTurnToPlay() : throwingFirst = " + this.throwingFirst);
         }
 
         override public void UpdateAboutOponentsCard(Card card)
         {
-            Console.WriteLine("Oponent played: " + card.GetCardImageName() + " and it's oponents time to throw!");
+            if (throwingFirst == false) // if I throw second I have to respond to his played card
+            {
+                Console.WriteLine("Oponent played: " + card.GetCardImageName() + " and it's Your time to throw!");
+                GetHand().MakeSelectionOfCardsThatAreAllowedToBePlayed(card); // samo za sada je null, promijeniti!!!
+            }
+
+            throwingFirst = false;
+        }
+
+        private Label labelScore;
+
+        public void SetScoreLabel(Label label)
+        {
+            this.labelScore = label;
+        }
+
+        override public void AddPoints(int points)
+        {
+            base.AddPoints(points);
+            this.labelScore.Text = base.Score.ToString();
+        }
+
+        override public void EnoughPoints()
+        {
+            if (throwingFirst == true)
+                if (base.Score >= 66)
+                {
+                    MessageBox.Show("You won the round!");
+                    base.EnoughPoints();
+                }
+        }
+        
+        override public void ExchangeAdut()
+        {
+            if (throwingFirst == true)
+                if (this.cardThrown == false)
+                    base.ExchangeAdut();
+        }
+
+        override public void CloseGame() 
+        {
+            if (throwingFirst == true)
+                if (this.cardThrown == false)
+                    base.CloseGame();
         }
     }
 }

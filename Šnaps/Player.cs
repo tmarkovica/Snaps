@@ -3,10 +3,11 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows.Forms;
 
 namespace Šnaps
 {
-    class Player : ITableObserver// : IPlayerMechanics
+    class Player : ITableObserver
     {
         IPlayerMechanics gameMechanism;
 
@@ -14,7 +15,11 @@ namespace Šnaps
 
         Hand hand;
 
-        public Player(Hand hand) { this.hand = hand; }
+        public Player(Hand hand) 
+        {
+            this.hand = hand;
+            this.Score = 60;
+        }
 
         public void ExplainGameMechanics(IPlayerMechanics mechanics) { this.gameMechanism = mechanics; }
 
@@ -29,6 +34,7 @@ namespace Šnaps
         public void PlayCard(Card card)
         {
             this.tableCardHolder.PlaceCard(card);
+            this.gameMechanism.PrepNextPlayer();
         }
 
         virtual public void UpdateAboutOponentsCard(Card card)
@@ -41,8 +47,45 @@ namespace Šnaps
             this.hand.AddCard(card);
         }
 
+        public void DrawCard()
+        {
+            this.hand.AddCard(this.gameMechanism.GetCardFromDealer());
+        }
+
         public Hand GetHand() { return this.hand; }
 
-        virtual public void YourTurnToPLay() { }
+        virtual public void YourTurnToPLay(Label label) {   }
+
+        // Score
+        public int Score
+        {
+            get;
+            private set;
+        }
+        
+        virtual public void AddPoints(int points)
+        {
+            this.Score += points;
+        }
+
+        virtual public void EnoughPoints()
+        {
+            this.gameMechanism.EnoughPoints();
+        }
+
+        public void ResetHand() 
+        { 
+            this.hand.ResetHand(); 
+        }
+
+        virtual public void ExchangeAdut()
+        {
+            this.gameMechanism.ExchangeAdut(this.hand.GetHolderOfAdutExchanger());
+        }
+
+        virtual public void CloseGame()
+        {
+            this.gameMechanism.CloseGame();
+        }
     }
 }

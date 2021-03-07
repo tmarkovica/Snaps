@@ -7,15 +7,13 @@ using System.Windows.Forms;
 
 namespace Šnaps
 {
-    class Oponent : Player//, ITableObserver//, ITurnStartingPlayer
+    class Oponent : Player
     {
         public Oponent(Hand hand) : base(hand) { }
 
         override public void UpdateAboutOponentsCard(Card card)
         {
-            Console.WriteLine("Player played: " + card.GetCardImageName() + " and it's oponents time to throw!");
-
-            //base.PlayCard()
+            
         }
 
         public Card GetPlayedCard(PictureBox sender) // samo za testiranje
@@ -28,9 +26,25 @@ namespace Šnaps
             base.PlayCard(GetPlayedCard(sender));
         }
 
-        override public void YourTurnToPLay()
+        override public void YourTurnToPLay(Label label)
         {
-            
+            label.Text = "Oponents turn";
+            label.BackColor = System.Drawing.Color.Red;
         }
+
+        //---* ovo je samo za testiranje brisati posle
+        private Label labelScore;
+
+        public void SetScoreLabel(Label label)
+        {
+            this.labelScore = label;
+        }
+
+        override public void AddPoints(int points)
+        {
+            base.AddPoints(points);
+            this.labelScore.Text = base.Score.ToString();
+        }
+        //---*
     }
 }

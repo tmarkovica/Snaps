@@ -10,8 +10,6 @@ namespace Šnaps
     {
         public bool myTurn { get; set; }
 
-        public ClosedGameLogic(string adutColor) : base(adutColor) { }
-
         override public bool IsFirstCardWinner(Card card1, Card card2)
         {
             if (IsCardAdut(card1))

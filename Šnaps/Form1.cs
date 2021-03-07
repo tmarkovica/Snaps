@@ -22,7 +22,10 @@ namespace Šnaps
 
 
             this.player = new RealPlayer(myHand);
+            this.player.SetScoreLabel(labelMyScore);
+
             this.oponent = new Oponent(oponentsHand);
+            this.oponent.SetScoreLabel(labelOponentsScore);
 
             this.referee = new Referee();
 
@@ -31,14 +34,24 @@ namespace Šnaps
 
 
             Participants participants = new Participants();
+            participants.Referee = referee;
+
             participants.Add(this.player);
             participants.Add(oponent);
 
-            participants.Referee = referee;
+            
 
             this.game = new Game(participants);
 
-            SetControls();
+
+            // dealer!
+            DeckControl deckControl = new DeckControl(pictureBoxDeck, labelClosedGame);
+            AdutControl adut = new AdutControl(pictureBoxAdut, pictureBoxAdutColor);
+            CardDealerManager dealer = new CardDealerManager(deckControl, adut);
+
+            this.game.SetTurnLabel(labelTurn);
+            this.game.SetDealer(dealer);
+
 
             this.game.Start();
         }
@@ -52,12 +65,6 @@ namespace Šnaps
         {
             List<PictureBox> pictureBoxes = new List<PictureBox>() { pb1, pb2, pb3, pb4, pb5 };
             return new Hand(pictureBoxes);
-        }
-
-        public void SetControls()
-        {
-            this.game.SetAdut_PictureBox(pictureBoxAdut, pictureBoxAdutColor);
-            this.game.SetTurnLabel(labelTurn);
         }
 
         Game game;
@@ -82,7 +89,6 @@ namespace Šnaps
         {
             if (movingEnabled)
             {
-                //pictureBox.Location = new Point(MousePosition.X - 23 - moveX - this.Left, MousePosition.Y - 46 - moveY - this.Top);
                 pictureBox.Location = new Point(MousePosition.X - 9 - moveX - this.Left, MousePosition.Y - 32 - moveY - this.Top);
             }
         }
@@ -122,7 +128,7 @@ namespace Šnaps
 
         private void ExchangeAdut(object sender, EventArgs e)
         {
-            //this.player.ExchangeAdut(sender as PictureBox); //not yet implemented
+            this.player.ExchangeAdut();
         }
 
         private void MouseUp_PlayCard(object sender, MouseEventArgs e)
@@ -137,7 +143,7 @@ namespace Šnaps
 
         private void panel1_Click(object sender, EventArgs e)
         {
-            Console.WriteLine("MousePosition: " + MousePosition);
+            //Console.WriteLine("MousePosition: " + MousePosition);
         }
 
         private void MouseDoubleClick_PlayCard(object sender, MouseEventArgs e)
@@ -157,10 +163,22 @@ namespace Šnaps
             Application.Exit();
         }
 
+        private void buttonEnoughPoints_Click(object sender, EventArgs e)
+        {
+            this.player.EnoughPoints();
+        }
+
+        private void CloseGameClick(object sender, EventArgs e)
+        {
+            this.player.CloseGame(); Console.WriteLine("CloseGameButtonClick()");
+        }
 
         private void pictureBox10_MouseDoubleClick(object sender, MouseEventArgs e) // samo za testiranje
         {
             this.oponent.PlayCard(sender as PictureBox);
         }
+
+
+        // napraviti interface za: CloseGame, PlayCard, ExchangeAdut, EnoughPoints
     }
 }

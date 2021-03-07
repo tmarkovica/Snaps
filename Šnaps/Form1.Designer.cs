@@ -30,9 +30,13 @@ namespace Šnaps
         private void InitializeComponent()
         {
             this.panel1 = new System.Windows.Forms.Panel();
+            this.buttonEnoughPoints = new System.Windows.Forms.Button();
             this.pictureBoxDeck = new System.Windows.Forms.PictureBox();
             this.pictureBoxAdut = new System.Windows.Forms.PictureBox();
             this.panel2 = new System.Windows.Forms.Panel();
+            this.label2 = new System.Windows.Forms.Label();
+            this.labelOponentsScore = new System.Windows.Forms.Label();
+            this.labelMyScore = new System.Windows.Forms.Label();
             this.pictureBoxAdutColor = new System.Windows.Forms.PictureBox();
             this.labelTurn = new System.Windows.Forms.Label();
             this.label1 = new System.Windows.Forms.Label();
@@ -54,6 +58,7 @@ namespace Šnaps
             this.fileToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.newGameToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.exitToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.labelClosedGame = new System.Windows.Forms.Label();
             this.panel1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBoxDeck)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBoxAdut)).BeginInit();
@@ -76,6 +81,8 @@ namespace Šnaps
             // 
             // panel1
             // 
+            this.panel1.Controls.Add(this.labelClosedGame);
+            this.panel1.Controls.Add(this.buttonEnoughPoints);
             this.panel1.Controls.Add(this.pictureBoxDeck);
             this.panel1.Controls.Add(this.pictureBoxAdut);
             this.panel1.Controls.Add(this.panel2);
@@ -98,6 +105,17 @@ namespace Šnaps
             this.panel1.TabIndex = 0;
             this.panel1.Click += new System.EventHandler(this.panel1_Click);
             // 
+            // buttonEnoughPoints
+            // 
+            this.buttonEnoughPoints.Font = new System.Drawing.Font("Microsoft Sans Serif", 14F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.buttonEnoughPoints.Location = new System.Drawing.Point(1226, 721);
+            this.buttonEnoughPoints.Name = "buttonEnoughPoints";
+            this.buttonEnoughPoints.Size = new System.Drawing.Size(101, 34);
+            this.buttonEnoughPoints.TabIndex = 18;
+            this.buttonEnoughPoints.Text = "Dosta";
+            this.buttonEnoughPoints.UseVisualStyleBackColor = true;
+            this.buttonEnoughPoints.Click += new System.EventHandler(this.buttonEnoughPoints_Click);
+            // 
             // pictureBoxDeck
             // 
             this.pictureBoxDeck.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
@@ -106,6 +124,7 @@ namespace Šnaps
             this.pictureBoxDeck.Size = new System.Drawing.Size(213, 128);
             this.pictureBoxDeck.TabIndex = 17;
             this.pictureBoxDeck.TabStop = false;
+            this.pictureBoxDeck.Click += new System.EventHandler(this.CloseGameClick);
             // 
             // pictureBoxAdut
             // 
@@ -119,6 +138,9 @@ namespace Šnaps
             // 
             // panel2
             // 
+            this.panel2.Controls.Add(this.label2);
+            this.panel2.Controls.Add(this.labelOponentsScore);
+            this.panel2.Controls.Add(this.labelMyScore);
             this.panel2.Controls.Add(this.pictureBoxAdutColor);
             this.panel2.Controls.Add(this.labelTurn);
             this.panel2.Controls.Add(this.label1);
@@ -129,6 +151,36 @@ namespace Šnaps
             this.panel2.Name = "panel2";
             this.panel2.Size = new System.Drawing.Size(275, 873);
             this.panel2.TabIndex = 15;
+            // 
+            // label2
+            // 
+            this.label2.AutoSize = true;
+            this.label2.Font = new System.Drawing.Font("Microsoft Sans Serif", 20F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label2.Location = new System.Drawing.Point(3, 294);
+            this.label2.Name = "label2";
+            this.label2.Size = new System.Drawing.Size(167, 31);
+            this.label2.TabIndex = 8;
+            this.label2.Text = "Tvoji bodovi:";
+            // 
+            // labelOponentsScore
+            // 
+            this.labelOponentsScore.AutoSize = true;
+            this.labelOponentsScore.Font = new System.Drawing.Font("Microsoft Sans Serif", 24F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.labelOponentsScore.Location = new System.Drawing.Point(181, 338);
+            this.labelOponentsScore.Name = "labelOponentsScore";
+            this.labelOponentsScore.Size = new System.Drawing.Size(36, 37);
+            this.labelOponentsScore.TabIndex = 7;
+            this.labelOponentsScore.Text = "0";
+            // 
+            // labelMyScore
+            // 
+            this.labelMyScore.AutoSize = true;
+            this.labelMyScore.Font = new System.Drawing.Font("Microsoft Sans Serif", 24F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.labelMyScore.Location = new System.Drawing.Point(63, 338);
+            this.labelMyScore.Name = "labelMyScore";
+            this.labelMyScore.Size = new System.Drawing.Size(36, 37);
+            this.labelMyScore.TabIndex = 6;
+            this.labelMyScore.Text = "0";
             // 
             // pictureBoxAdutColor
             // 
@@ -352,6 +404,17 @@ namespace Šnaps
             this.exitToolStripMenuItem.Text = "Exit";
             this.exitToolStripMenuItem.Click += new System.EventHandler(this.exitToolStripMenuItem_Click);
             // 
+            // labelClosedGame
+            // 
+            this.labelClosedGame.AutoSize = true;
+            this.labelClosedGame.Font = new System.Drawing.Font("Microsoft Sans Serif", 14F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.labelClosedGame.Location = new System.Drawing.Point(1394, 362);
+            this.labelClosedGame.Name = "labelClosedGame";
+            this.labelClosedGame.Size = new System.Drawing.Size(104, 24);
+            this.labelClosedGame.TabIndex = 19;
+            this.labelClosedGame.Text = "Zatvoreno";
+            this.labelClosedGame.Visible = false;
+            // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -365,6 +428,7 @@ namespace Šnaps
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "Form1";
             this.panel1.ResumeLayout(false);
+            this.panel1.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBoxDeck)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBoxAdut)).EndInit();
             this.panel2.ResumeLayout(false);
@@ -416,6 +480,11 @@ namespace Šnaps
         private System.Windows.Forms.ToolStripMenuItem newGameToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem exitToolStripMenuItem;
         private System.Windows.Forms.PictureBox pictureBoxDeck;
+        private System.Windows.Forms.Label labelOponentsScore;
+        private System.Windows.Forms.Label labelMyScore;
+        private System.Windows.Forms.Label label2;
+        private System.Windows.Forms.Button buttonEnoughPoints;
+        private System.Windows.Forms.Label labelClosedGame;
     }
 }
 
