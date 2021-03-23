@@ -70,6 +70,7 @@
     <Compile Include="IAbstractCollection.cs" />
     <Compile Include="ICollectable.cs" />
     <Compile Include="IExchangable.cs" />
+    <Compile Include="IOponentsHand.cs" />
     <Compile Include="IStorageable.cs" />
     <Compile Include="IPlayerMechanics.cs" />
     <Compile Include="Iterator.cs" />
@@ -80,6 +81,8 @@
     <Compile Include="NewFolder1\GameLogic.cs" />
     <Compile Include="NewFolder1\NormalGameLogic.cs" />
     <Compile Include="Oponent.cs" />
+    <Compile Include="OponentAI.cs" />
+    <Compile Include="OponentsHand.cs" />
     <Compile Include="Player.cs" />
     <Compile Include="Participants.cs" />
     <Compile Include="Program.cs" />

@@ -33,7 +33,7 @@ namespace Šnaps
         {
             List<Card> cards = new List<Card>();
             foreach (ICollectable cardFromHolder in tableCardholders)
-            { 
+            {
                 cards.Add(cardFromHolder.PullCard());
             }
 
@@ -55,8 +55,13 @@ namespace Šnaps
 
             this.CollectPoints(cards);
 
-            if (this.GameClosed == false)
-                if (NormalGameLogic.IsFirstCardWinner(cards[0], cards[1]))
+            
+            Console.WriteLine("/////////:");
+            foreach (Card c in cards)
+                Console.WriteLine("-- " + c.GetCardImageName());
+
+            //if (this.GameClosed == false)
+            if (NormalGameLogic.IsFirstCardWinner(cards[0], cards[1]))
                     return 0;
                 else
                     return 1;

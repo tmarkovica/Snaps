@@ -39,7 +39,7 @@ namespace Šnaps
 
         virtual public void UpdateAboutOponentsCard(Card card)
         {
-            this.hand.MakeSelectionOfCardsThatAreAllowedToBePlayed(card);
+            //this.hand.MakeSelectionOfCardsThatAreAllowedToBePlayed(card);
         }
 
         public void DrawCard(Card card)

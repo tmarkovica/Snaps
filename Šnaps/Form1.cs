@@ -18,8 +18,10 @@ namespace Šnaps
             InitializeComponent();
 
             Hand myHand = GetHand(pictureBox1, pictureBox2, pictureBox3, pictureBox4, pictureBox5);
-            Hand oponentsHand = GetHand(pictureBox6, pictureBox7, pictureBox8, pictureBox9, pictureBox10);
+            //Hand oponentsHand = GetHand(pictureBox6, pictureBox7, pictureBox8, pictureBox9, pictureBox10);
 
+            List<PictureBox> oponentsPictureBoxes = new List<PictureBox>() { pictureBox6, pictureBox7, pictureBox8, pictureBox9, pictureBox10 };
+            OponentsHand oponentsHand = new OponentsHand(oponentsPictureBoxes);
 
             this.player = new RealPlayer(myHand);
             this.player.SetScoreLabel(labelMyScore);
@@ -102,11 +104,7 @@ namespace Šnaps
                     // 23px je visina ruba prozora
                     if (pictureBoxMyPlayedCard.Location.Y + 23 < MousePosition.Y && pictureBoxMyPlayedCard.Location.Y + 23 + pictureBoxMyPlayedCard.Size.Height > MousePosition.Y)
                     {
-                        //pictureBoxMyPlayedCard.Image = pictureBox.Image;
-
-                        //this.game.Play(sender as PictureBox);
-
-                        this.player.PlayCard(sender as PictureBox); //not yet implemented
+                        this.player.PlayCard(sender as PictureBox);
                     }
                 }
             }
@@ -117,10 +115,7 @@ namespace Šnaps
                     // 31 px je visina ruba prozora kad forma nije full screen
                     if (pictureBoxMyPlayedCard.Location.Y + 31 + this.Top < MousePosition.Y && pictureBoxMyPlayedCard.Location.Y + 31 + this.Top + pictureBoxMyPlayedCard.Size.Height > MousePosition.Y)
                     {
-                        //pictureBoxMyPlayedCard.Image = pictureBox.Image;
-                        //this.game.Play(sender as PictureBox);
-
-                        this.player.PlayCard(sender as PictureBox); //not yet implemented
+                        this.player.PlayCard(sender as PictureBox);
                     }
                 }
             }
@@ -148,8 +143,6 @@ namespace Šnaps
 
         private void MouseDoubleClick_PlayCard(object sender, MouseEventArgs e)
         {
-            //this.game.Play(sender as PictureBox);
-
             this.player.PlayCard(sender as PictureBox);
         }
         

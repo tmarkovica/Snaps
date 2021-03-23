@@ -7,7 +7,7 @@ using System.Windows.Forms;
 
 namespace Šnaps
 {
-    class Hand// : IExchangable
+    class Hand
     {
         List<CardHolder> holders;
 
@@ -30,7 +30,7 @@ namespace Šnaps
             }
         }
 
-        public Card GetCardFrom(PictureBox sender)
+        public Card TakeCardFrom(PictureBox sender)
         {
             foreach (CardHolder holder in holders)
             {
@@ -78,14 +78,11 @@ namespace Šnaps
 
         public void ResetHand()
         {
-            Console.WriteLine("-----------");
             foreach (CardHolder holder in holders)
             {
                 holder.ClearHolder();
                 holder.SetHolderVisible(false);
-                Console.WriteLine(holder.GetHolderStats());
             }
-            Console.WriteLine("-----------");
         }
 
         public CardHolder GetHolderOfAdutExchanger()

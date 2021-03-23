@@ -11,13 +11,16 @@ namespace Šnaps
     {
         private Participants participants;
         private int currentPlayerIndex;
-        private int throwCounter;
+        private int throwCounter; // value 0 to participants.Count
+
+        private int turnCounter; // value 0 to 10; when 4 or less CanCloseGame, CanExchangeAdut; when 5 last cards to draw; 6 or more no more drawing cards
 
         public Iterator(Participants participants)
         {
             this.participants = participants;
             this.currentPlayerIndex = 0;
             this.throwCounter = 0;
+            this.turnCounter = 0;
         }
 
         public int NumberOfParticipants { get { return this.participants.Count; } }
@@ -81,12 +84,14 @@ namespace Šnaps
 
             Console.WriteLine("Winner is player: " + this.currentPlayerIndex);
 
+
             StartNewTurn();
         }
 
         public void StartNewTurn()
         {
-            Console.WriteLine("******************************* throwCounter = " + this.throwCounter);
+            this.turnCounter++;
+            Console.WriteLine("******************************* turnCounter = " + this.turnCounter);
             if (this.throwCounter == 0)
                 this.participants.Referee.GameStarts();
             else if (this.throwCounter > 5) // when you run out of cards to draw
@@ -102,7 +107,8 @@ namespace Šnaps
                 this.CurrentPlayer.DrawCard();
             }
 
-            this.participants[i].YourTurnToPLay(labelTurn);
+            if (this.turnCounter < 11)
+                this.participants[i].YourTurnToPLay(labelTurn);
         }
 
         public void NewRound()
@@ -111,8 +117,9 @@ namespace Šnaps
 
             this.participants.Referee.GameClosed = false;
 
+            this.turnCounter++;
             //this.StartNewTurn(); // kod ispod umjesto ove linije
-            Console.WriteLine("******************************* throwCounter = " + this.throwCounter);
+            Console.WriteLine("******************************* turnCounter = " + this.turnCounter);
             if (this.throwCounter == 0)
                 this.participants.Referee.GameStarts();
             else if (this.throwCounter > 5) // when you run out of cards to draw
@@ -140,7 +147,7 @@ namespace Šnaps
 
         public bool HaveFourTurnsPassed()
         {
-            if (this.throwCounter > 4)
+            if (this.turnCounter > 4)
             {
                 return true;
             }

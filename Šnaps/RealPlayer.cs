@@ -13,7 +13,7 @@ namespace Šnaps
 
         private Card GetCardFromSender(PictureBox sender)
         {
-            return GetHand().GetCardFrom(sender);
+            return GetHand().TakeCardFrom(sender);
         }
 
         public void PlayCard(PictureBox sender)
@@ -22,7 +22,14 @@ namespace Šnaps
 
             GetHand().SetHandEnabled(false);
 
-            base.PlayCard(GetCardFromSender(sender));
+
+            // obrisati
+            Card card = GetCardFromSender(sender);
+            Console.WriteLine("+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ Player plays: " + card.GetCardImageName());
+            base.PlayCard(card);
+            //
+
+            //base.PlayCard(GetCardFromSender(sender));
         }
 
         bool throwingFirst = false;
@@ -41,15 +48,12 @@ namespace Šnaps
 
             this.throwingFirst = true;
             this.cardThrown = false;
-
-            Console.WriteLine("override void YourTurnToPlay() : throwingFirst = " + this.throwingFirst);
         }
 
         override public void UpdateAboutOponentsCard(Card card)
         {
             if (throwingFirst == false) // if I throw second I have to respond to his played card
             {
-                Console.WriteLine("Oponent played: " + card.GetCardImageName() + " and it's Your time to throw!");
                 GetHand().MakeSelectionOfCardsThatAreAllowedToBePlayed(card); // samo za sada je null, promijeniti!!!
             }
 
