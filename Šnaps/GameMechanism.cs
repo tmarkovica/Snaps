@@ -31,7 +31,7 @@ namespace Šnaps
             if (gameClosed == true)
                 return null;
 
-            return this.dealer.PullCard(); ;
+            return this.dealer.PullCard();
         }
 
         private void DealCards()
@@ -60,10 +60,20 @@ namespace Šnaps
         Label turnLabel;
 
         public void SetTurnLabel(Label label) { this.turnLabel = label; }
+        /*
+        private void ResetPlayerHands()
+        {
+            for (int j = 0; j < this.iterator.NumberOfParticipants; j++)
+                this.iterator.CurrentPlayer.ResetHand();
+
+            this.gameClosed = false;
+        }*/
 
         public void StartRound()
         {
-            ResetPlayerHands();
+            //ResetPlayerHands();
+
+            this.iterator.ResetPlayersHands();
 
             this.DealCards();
             this.gameClosed = false;
@@ -79,14 +89,6 @@ namespace Šnaps
         public void EnoughPoints()
         {
             StartRound();
-        }
-
-        private void ResetPlayerHands()
-        {
-            for (int j = 0; j < this.iterator.NumberOfParticipants; j++)
-                this.iterator.CurrentPlayer.ResetHand();
-
-            this.gameClosed = false;
         }
 
         public void ExchangeAdut(IStorageable holder)

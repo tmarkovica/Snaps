@@ -10,7 +10,9 @@ namespace Šnaps
     class Iterator
     {
         private Participants participants;
+
         private int currentPlayerIndex;
+
         private int throwCounter; // value 0 to participants.Count
 
         private int turnCounter; // value 0 to 10; when 4 or less CanCloseGame, CanExchangeAdut; when 5 last cards to draw; 6 or more no more drawing cards
@@ -70,72 +72,6 @@ namespace Šnaps
             }
         }
 
-        private void DetermineTurnWinner()
-        {
-            int tempCurrent = this.currentPlayerIndex;
-
-            List<Card> cards = new List<Card>();
-
-            int turnWinnerIndex = this.participants.Referee.GetTurnWinnerIndex();
-
-            participants[turnWinnerIndex].AddPoints(this.participants.Referee.Points);
-
-            this.currentPlayerIndex = turnWinnerIndex;
-
-            Console.WriteLine("Winner is player: " + this.currentPlayerIndex);
-
-
-            StartNewTurn();
-        }
-
-        public void StartNewTurn()
-        {
-            this.turnCounter++;
-            Console.WriteLine("******************************* turnCounter = " + this.turnCounter);
-            if (this.throwCounter == 0)
-                this.participants.Referee.GameStarts();
-            else if (this.throwCounter > 5) // when you run out of cards to draw
-                this.participants.Referee.CloseGame();
-
-
-            int i = this.currentPlayerIndex;
-
-            this.CurrentPlayer.DrawCard();
-
-            while (i != this.currentPlayerIndex)
-            {
-                this.CurrentPlayer.DrawCard();
-            }
-
-            if (this.turnCounter < 11)
-                this.participants[i].YourTurnToPLay(labelTurn);
-        }
-
-        public void NewRound()
-        {
-            this.throwCounter = 0;
-
-            this.participants.Referee.GameClosed = false;
-
-            this.turnCounter++;
-            //this.StartNewTurn(); // kod ispod umjesto ove linije
-            Console.WriteLine("******************************* turnCounter = " + this.turnCounter);
-            if (this.throwCounter == 0)
-                this.participants.Referee.GameStarts();
-            else if (this.throwCounter > 5) // when you run out of cards to draw
-                this.participants.Referee.CloseGame();
-
-
-            int i = this.currentPlayerIndex;
-
-            while (i != this.currentPlayerIndex)
-            {
-                this.CurrentPlayer.DrawCard();
-            }
-
-            this.participants[i].YourTurnToPLay(labelTurn);
-        }
-
         Label labelTurn;
 
         public void SetTurnLabel(Label label) { this.labelTurn = label; }
@@ -148,11 +84,80 @@ namespace Šnaps
         public bool HaveFourTurnsPassed()
         {
             if (this.turnCounter > 4)
-            {
                 return true;
-            }
             else
                 return false;
+        }
+
+        public void PlayersDraw()
+        {
+            int i = this.currentPlayerIndex;
+            do
+            {
+                this.CurrentPlayer.DrawCard();
+            } while (i != this.currentPlayerIndex);
+        }
+
+        public void NewTurn()
+        {
+            this.turnCounter++;
+            Console.WriteLine("******************************* turnCounter = " + this.turnCounter);
+            
+            if (this.throwCounter > 5) // when you run out of cards to draw
+                this.participants.Referee.CloseGame();
+
+            this.participants.Referee.StartingPlayerIndex = this.currentPlayerIndex;
+
+            PlayersDraw();
+
+            if (this.turnCounter < 10)
+                this.participants[this.currentPlayerIndex].YourTurnToPLay(labelTurn);
+        }
+
+        public void NewRound()
+        {
+            this.throwCounter = 0; // ovisno o pobjedniku
+            this.turnCounter = 0;
+            /*
+            if (this.throwCounter == 0)
+                this.participants.Referee.GameStarts();*/ // ako bude potrebno
+
+            this.participants.Referee.GameClosed = false;
+
+            ResetPlayersHands();
+            
+
+            Console.WriteLine("-------------------------------------------------------------------------------");
+            Console.WriteLine("NEW ROUND OF SNAPS");
+            Console.WriteLine("-------------------------------------------------------------------------------");
+            Console.WriteLine("|||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||");
+            Console.WriteLine("-------------------------------------------------------------------------------");
+
+            this.NewTurn();
+        }
+
+        private void DetermineTurnWinner()
+        {
+            int tempCurrent = this.currentPlayerIndex;
+
+            int turnWinnerIndex = this.participants.Referee.GetTurnWinnerIndex();
+
+            participants[turnWinnerIndex].AddPoints(this.participants.Referee.Points);
+
+            this.currentPlayerIndex = turnWinnerIndex;
+
+            Console.WriteLine("Winner is player: " + this.currentPlayerIndex);
+
+            if (this.turnCounter < 9)
+                NewTurn();
+            else
+                NewRound();
+        }
+
+        public void ResetPlayersHands()
+        {
+            for (int j = 0; j < this.NumberOfParticipants; j++)
+                this.CurrentPlayer.ResetHand();
         }
     }
 }

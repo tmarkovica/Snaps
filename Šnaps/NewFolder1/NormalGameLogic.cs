@@ -68,7 +68,7 @@ namespace Šnaps
                     }
                     else
                     {
-                        Console.WriteLine("Card1 < Card2 - boje različite, myTurn = " + true);
+                        Console.WriteLine("Card1 > Card2 - boje različite, first thrower wins");
                         return true;
                     }
                 }

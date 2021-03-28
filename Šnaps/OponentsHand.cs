@@ -115,7 +115,7 @@ namespace Šnaps
             return card;
         }
 
-        public Card CounterCard(Card card) *****
+        public Card CounterCard(Card card) 
         {
             List<Card> cards = this.CollectCards();
 
@@ -125,13 +125,13 @@ namespace Šnaps
             {
                 Console.WriteLine("cards[" + i + "] = " + cards[i].GetCardImageName());
 
-                if (NormalGameLogic.IsFirstCardWinner(card, cards[i]) == false) // nezna ko igra prvi a ko drugi!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+                //if (NormalGameLogic.IsFirstCardWinner(card, cards[i]) == false) // nezna ko igra prvi a ko drugi!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+                if (NormalGameLogic.IsFirstCardWinner(cards[i], card) == true)
                 {
                     Console.WriteLine("Exit 1");
                     return this.SeparateCardFromHandAtIndex(cards, i);
                 }
-                else
-                if (NormalGameLogic.IsCardAdut(cards[i]) == false)
+                else if (NormalGameLogic.IsCardAdut(cards[i]) == false)
                     if (NormalGameLogic.IsFirstCardHigherValue(cards[weakestCardIndex], cards[i]))
                     {
                         Console.WriteLine("Exit 2");

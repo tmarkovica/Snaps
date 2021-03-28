@@ -60,26 +60,25 @@ namespace Šnaps
             foreach (Card c in cards)
                 Console.WriteLine("-- " + c.GetCardImageName());
 
-            //if (this.GameClosed == false)
-            if (NormalGameLogic.IsFirstCardWinner(cards[0], cards[1]))
+            if (this.StartingPlayerIndex == 0)
+            {
+                if (NormalGameLogic.IsFirstCardWinner(cards[0], cards[1])) // tu nezna ko igra prvi, a ko drugi
                     return 0;
                 else
                     return 1;
-
-            return 0;
-
-            /*else
-                if (ClosedGameLogic.IsFirstCardWinner(cards[0], cards[1]))
-                    return 0;
+            }
+            else //if (this.StartingPlayerIndex == 1)
+            {
+                if (NormalGameLogic.IsFirstCardWinner(cards[1], cards[0]))
+                    return 1;
                 else
-                    return 1;*/
+                    return 0;
+            }
+
+            
+
 
         }
-
-        //private GameLogic gameLogic;
-
-        //
-
         public bool GameClosed
         {
             get;
@@ -94,6 +93,12 @@ namespace Šnaps
         public void GameStarts()
         {
             //this.gameLogic = new NormalGameLogic(AdutColor.GetColor());
+        }
+
+        public int StartingPlayerIndex
+        {
+            get;
+            set;
         }
     }
 }
