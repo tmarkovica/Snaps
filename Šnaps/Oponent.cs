@@ -17,7 +17,7 @@ namespace Šnaps
 
         public Oponent(OponentAI ai) : base(ai.GetHand()) { this.oponentAI = ai; }
 
-        override public void YourTurnToPLay(Label label)
+        override public void YourTurnToPLayFirst(Label label)
         {          
             label.Text = "Oponents turn";
             label.BackColor = System.Drawing.Color.Red;

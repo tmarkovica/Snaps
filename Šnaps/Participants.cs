@@ -10,8 +10,6 @@ namespace Šnaps
     {
         private List<Player> players;
 
-        private Referee referee;
-
         public Participants()
         {
             this.players = new List<Player>();
@@ -34,16 +32,12 @@ namespace Šnaps
             get { return this.players[index]; }
         }
 
+        private Referee referee;
+        
         public Referee Referee
         {
-            get
-            {
-                return referee;
-            }
-            set
-            {
-                referee = value;
-            }
+            get { return referee; }
+            set { this.referee = value; }
         }
     }
 }

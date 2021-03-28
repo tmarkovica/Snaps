@@ -1,9 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Windows.Forms;
+﻿using System.Windows.Forms;
 
 namespace Šnaps
 {
@@ -20,19 +15,23 @@ namespace Šnaps
         }
 
         GameMechanism gameMechanism;
+        TurnManager turnManager;
 
         private void IntroduceGameMechanics()
         {
             this.iterator = this.participants.CreateIterator();
 
-            this.gameMechanism = new GameMechanism(iterator);
+            //this.gameMechanism = new GameMechanism(iterator);
+
+            this.turnManager = new TurnManager(iterator, this.participants.Referee);
+            this.gameMechanism = new GameMechanism(this.turnManager);
         }
 
         public void SetDealer(CardDealerManager dealer) { this.gameMechanism.SetDealer(dealer); }
 
         public void SetTurnLabel(Label labelTurn)
         {
-            this.iterator.SetTurnLabel(labelTurn);
+            this.turnManager.SetTurnLabel(labelTurn);
         }
 
         public void Start()

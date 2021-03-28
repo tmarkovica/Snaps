@@ -1,24 +1,21 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Forms;
 
 namespace Šnaps
 {
-    class GameMechanism : IPlayerMechanics
+    class GameMechanism : IPlayerMechanics, IRoundObserver
     {
-        Iterator iterator; // turn manager
         CardDealerManager dealer;
 
         private bool gameClosed = false;
 
-        public GameMechanism(Iterator iterator) 
-        {
-            this.iterator = iterator;
+        TurnManager turnManager;
 
-            this.iterator.IntroduceGameMechanicsToPlayers(this);
+        public GameMechanism(TurnManager manager) 
+        {
+            this.turnManager = manager;
+            this.turnManager.IntroduceGameMechanicsToPlayers(this); 
         }
 
         public void SetDealer(CardDealerManager dealer)
@@ -39,10 +36,7 @@ namespace Šnaps
             this.dealer.Shuffle();
 
             for (int i = 0; i < 5; i++)
-            {
-                for (int j = 0; j < this.iterator.NumberOfParticipants; j++)
-                    this.iterator.CurrentPlayer.DrawCard();
-            }
+                this.turnManager.PlayersDraw();
         }
 
         public Card GetCardFromDealer()
@@ -54,36 +48,23 @@ namespace Šnaps
         // Collegues
         List<ITurnStartingPlayer> players = new List<ITurnStartingPlayer>();
 
-        public void AddPlayer(ITurnStartingPlayer player) { this.players.Add(player); }
+        public void AddPlayer(ITurnStartingPlayer player) { }// this.players.Add(player); }
 
-        //
-        Label turnLabel;
-
-        public void SetTurnLabel(Label label) { this.turnLabel = label; }
-        /*
+        
         private void ResetPlayerHands()
         {
-            for (int j = 0; j < this.iterator.NumberOfParticipants; j++)
-                this.iterator.CurrentPlayer.ResetHand();
-
+            this.turnManager.ResetPlayerHands();
             this.gameClosed = false;
-        }*/
+        }
 
         public void StartRound()
         {
-            //ResetPlayerHands();
-
-            this.iterator.ResetPlayersHands();
+            ResetPlayerHands();
 
             this.DealCards();
             this.gameClosed = false;
 
-            this.iterator.NewRound();
-        }
-
-        public void PrepNextPlayer()
-        {
-            this.iterator.PrepNextPlayer();
+            this.turnManager.NewRound();
         }
 
         public void EnoughPoints()
@@ -93,7 +74,7 @@ namespace Šnaps
 
         public void ExchangeAdut(IStorageable holder)
         {
-            if (this.iterator.HaveFourTurnsPassed() == false) 
+            if (this.turnManager.HaveFourTurnsPassed() == false) 
             {
                 if (holder != null)
                     this.dealer.ExchangeAdut(holder);
@@ -102,12 +83,23 @@ namespace Šnaps
 
         public void CloseGame()
         {
-            if (this.iterator.HaveFourTurnsPassed() == false)
+            if (this.turnManager.HaveFourTurnsPassed() == false)
             {
-                this.iterator.CloseGame();
                 this.dealer.CloseGame();
                 this.gameClosed = true;
+                this.turnManager.CloseGame();
             }
+        }
+
+
+        public void PrepNextPlayer()
+        {
+            this.turnManager.PrepNextPlayer();
+        }
+
+        public void Update_RoundEnded()
+        {
+            StartRound();
         }
     }
 }

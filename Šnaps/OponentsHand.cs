@@ -131,8 +131,8 @@ namespace Šnaps
                     Console.WriteLine("Exit 1");
                     return this.SeparateCardFromHandAtIndex(cards, i);
                 }
-                else if (NormalGameLogic.IsCardAdut(cards[i]) == false)
-                    if (NormalGameLogic.IsFirstCardHigherValue(cards[weakestCardIndex], cards[i]))
+                else if (GameLogic.IsCardAdut(cards[i]) == false)
+                    if (GameLogic.IsFirstCardHigherValue(cards[weakestCardIndex], cards[i]))
                     {
                         Console.WriteLine("Exit 2");
                         weakestCardIndex = i;

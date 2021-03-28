@@ -6,18 +6,16 @@ using System.Threading.Tasks;
 
 namespace Šnaps
 {
-    class ClosedGameLogic : GameLogic
+    static class ClosedGameLogic
     {
-        public bool myTurn { get; set; }
-
-        override public bool IsFirstCardWinner(Card card1, Card card2)
+        static public bool IsFirstCardWinner(Card card1, Card card2)
         {
-            if (IsCardAdut(card1))
+            if (GameLogic.IsCardAdut(card1))
             {
-                if (IsCardAdut(card2))
+                if (GameLogic.IsCardAdut(card2))
                 {
                     Console.WriteLine("Adut1 <> Adut2");
-                    return AreCardsSameColor(card1, card2);
+                    return GameLogic.AreCardsSameColor(card1, card2);
                 }
                 else
                 {
@@ -27,30 +25,25 @@ namespace Šnaps
             }
             else
             {
-                if (IsCardAdut(card2))
+                if (GameLogic.IsCardAdut(card2))
                 {
                     Console.WriteLine("Card1 < Adut2");
                     return false;
                 }
                 else
                 {
-                    if (AreCardsSameColor(card1, card2))
+                    if (GameLogic.AreCardsSameColor(card1, card2))
                     {
                         Console.WriteLine("Card1 <> Card2 - u istoj boji");
-                        return IsFirstCardHigherValue(card1, card2);
+                        return GameLogic.IsFirstCardHigherValue(card1, card2);
                     }
                     else
                     {
-                        Console.WriteLine("Card1 < Card2 - boje različite, myTurn = " + myTurn);
-                        return myTurn;
+                        Console.WriteLine("Card1 < Card2 - boje različite, myTurn = ");
+                        return true;
                     }
                 }
             }
-        }
-
-        override public bool IsFirstCardStronger(Card card1, Card card2)
-        {
-            return true;
         }
     }
 }

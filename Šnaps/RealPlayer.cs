@@ -28,15 +28,14 @@ namespace Šnaps
             Console.WriteLine("+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ Player plays: " + card.GetCardImageName());
             base.PlayCard(card);
             //
-
-            //base.PlayCard(GetCardFromSender(sender));
+            //base.PlayCard(GetCardFromSender(sender)); // i odkomentirati ovo
         }
 
         bool throwingFirst = false;
         bool cardThrown = false;
 
 
-        override public void YourTurnToPLay(Label label)
+        override public void YourTurnToPLayFirst(Label label)
         {
             //GetHand().MakeSelectionOfCardsThatAreAllowedToBePlayed(null);
             GetHand().SetHandEnabled(true);

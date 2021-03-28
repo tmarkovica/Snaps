@@ -28,7 +28,7 @@ namespace Šnaps
         public void GreetOtherPlayers(List<ITableObserver> observers)
         {
             foreach (ITableObserver observer in observers)
-            this.tableCardHolder.Attach(observer);
+                this.tableCardHolder.Attach(observer);
         }
 
         public void PlayCard(Card card)
@@ -54,7 +54,7 @@ namespace Šnaps
 
         public Hand GetHand() { return this.hand; }
 
-        virtual public void YourTurnToPLay(Label label) {   }
+        virtual public void YourTurnToPLayFirst(Label label) {   }
 
         // Score
         public int Score

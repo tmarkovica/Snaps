@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Drawing;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -17,8 +18,8 @@ namespace Šnaps
             private set;
         }
 
-        public Referee() 
-        { 
+        public Referee()
+        {
             this.tableCardholders = new List<ICollectable>();
         }
 
@@ -32,73 +33,131 @@ namespace Šnaps
         private List<Card> CollectCards()
         {
             List<Card> cards = new List<Card>();
+            int points = 0;
             foreach (ICollectable cardFromHolder in tableCardholders)
             {
-                cards.Add(cardFromHolder.PullCard());
+                Card temp = cardFromHolder.PullCard();
+                points += temp.GetCardValue();
+                cards.Add(temp);
             }
-
+            this.Points = points;
             return cards;
         }
-
-        private void CollectPoints(List<Card> cards)
+        
+        Form formDiscardPile = new Form();
+        int lastX = 0;
+        int lastY = 0;
+        
+        private void ShowDiscardPile(List<Card> cards)
         {
-            int points = 0;
-            foreach (Card card in cards)
-                points += card.GetCardValue();
+            formDiscardPile.Show();    
 
-            this.Points = points;
+            foreach (Card card in cards)
+            {
+                Point lastPoint = new Point(lastX, lastY);
+
+                var picture = new PictureBox
+                {
+                    Name = "pictureBox",
+                    Size = new Size(128, 213),
+                    Location = lastPoint,
+                    Image = card.GetImage(),
+
+                };
+                formDiscardPile.Controls.Add(picture);
+
+                lastX += 128;
+            }
+
+            lastX += 40;
+
+            if (lastX >= 1280)
+            {
+                lastX = 0;
+                lastY += 213 + 40;
+            }
         }
 
-        public int GetTurnWinnerIndex()
+        private int GetTurnWinnerIndex()
         {
             List<Card> cards = CollectCards();
 
-            this.CollectPoints(cards);
-
-            
             Console.WriteLine("/////////:");
             foreach (Card c in cards)
                 Console.WriteLine("-- " + c.GetCardImageName());
 
-            if (this.StartingPlayerIndex == 0)
-            {
-                if (NormalGameLogic.IsFirstCardWinner(cards[0], cards[1])) // tu nezna ko igra prvi, a ko drugi
-                    return 0;
-                else
-                    return 1;
-            }
-            else //if (this.StartingPlayerIndex == 1)
-            {
-                if (NormalGameLogic.IsFirstCardWinner(cards[1], cards[0]))
-                    return 1;
-                else
-                    return 0;
-            }
-
             
+            ShowDiscardPile(cards);
 
 
+            if (GameClosed == false)
+            {
+                return FindTurnWinner_NormalGameLogic(cards);
+            }
+            else
+            {
+                return FindTurnWinner_ClosedGameLogic(cards);
+            }
         }
+
         public bool GameClosed
         {
             get;
             set;
         }
 
-        public void CloseGame() 
+        public void CloseGame()
         {
             this.GameClosed = true;
-        }
-
-        public void GameStarts()
-        {
-            //this.gameLogic = new NormalGameLogic(AdutColor.GetColor());
         }
 
         public int StartingPlayerIndex
         {
             get;
-            set;
+            private set;
+        }
+
+        public void DetermineNextStartingPlayer(Iterator iterator)
+        {
+            this.StartingPlayerIndex = GetTurnWinnerIndex();
+            iterator.SetStartingPlayerByIndex(this.StartingPlayerIndex);
+            iterator.StartingPlayer.AddPoints(Points);
+        }
+
+        private int FindTurnWinner_NormalGameLogic(List<Card> cards)
+        {
+            if (this.StartingPlayerIndex == 0)
+            {
+                if (NormalGameLogic.IsFirstCardWinner(cards[0], cards[1]))
+                    return 0;
+                else
+                    return 1;
+            }
+            else
+            {
+                if (NormalGameLogic.IsFirstCardWinner(cards[1], cards[0]))
+                    return 1;
+                else
+                    return 0;
+            }
+        }
+
+        private int FindTurnWinner_ClosedGameLogic(List<Card> cards)
+        {
+            if (this.StartingPlayerIndex == 0)
+            {
+                if (ClosedGameLogic.IsFirstCardWinner(cards[0], cards[1]))
+                    return 0;
+                else
+                    return 1;
+            }
+            else
+            {
+                if (ClosedGameLogic.IsFirstCardWinner(cards[1], cards[0]))
+                    return 1;
+                else
+                    return 0;
+            }
         }
     }
 }

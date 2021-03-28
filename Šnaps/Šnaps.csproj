@@ -71,6 +71,7 @@
     <Compile Include="ICollectable.cs" />
     <Compile Include="IExchangable.cs" />
     <Compile Include="IOponentsHand.cs" />
+    <Compile Include="IRoundObserver.cs" />
     <Compile Include="IStorageable.cs" />
     <Compile Include="IPlayerMechanics.cs" />
     <Compile Include="Iterator.cs" />
@@ -90,6 +91,7 @@
     <Compile Include="RealPlayer.cs" />
     <Compile Include="Referee.cs" />
     <Compile Include="TableCardHolder.cs" />
+    <Compile Include="TurnManager.cs" />
     <EmbeddedResource Include="Form1.resx">
       <DependentUpon>Form1.cs</DependentUpon>
     </EmbeddedResource>

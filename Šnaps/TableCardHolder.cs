@@ -16,6 +16,7 @@ namespace Šnaps
         public void Attach(ITableObserver observer)
         {
             this.observers.Add(observer);
+            Console.Write(observer + ", ");
         }
 
         public void Notify()
