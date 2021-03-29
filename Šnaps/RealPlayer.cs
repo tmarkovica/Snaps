@@ -22,13 +22,7 @@ namespace Šnaps
 
             GetHand().SetHandEnabled(false);
 
-
-            // obrisati
-            Card card = GetCardFromSender(sender);
-            Console.WriteLine("+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ Player plays: " + card.GetCardImageName());
-            base.PlayCard(card);
-            //
-            //base.PlayCard(GetCardFromSender(sender)); // i odkomentirati ovo
+            base.PlayCard(GetCardFromSender(sender));
         }
 
         bool throwingFirst = false;
@@ -43,7 +37,7 @@ namespace Šnaps
             label.Text = "Your turn";
             label.BackColor = System.Drawing.Color.LightBlue;
 
-            
+            //Call(tempCard);
 
             this.throwingFirst = true;
             this.cardThrown = false;
@@ -94,6 +88,34 @@ namespace Šnaps
             if (throwingFirst == true)
                 if (this.cardThrown == false)
                     base.CloseGame();
+        }
+
+        public override void Call(Card card)
+        {
+            if (card.GetCardValue() == 3 || card.GetCardValue() == 4)
+            {
+                if (GetHand().CanCall(card))
+                {
+                    DialogResult dialogResult = MessageBox.Show("", "Želite li zvati?", MessageBoxButtons.YesNo);
+                    if (dialogResult == DialogResult.Yes)
+                    {
+                        if (card.GetCardColor() == AdutColor.GetColor())
+                            AddPoints(40);
+                        else
+                            AddPoints(20);
+                    }
+                    else if (dialogResult == DialogResult.No)
+                    {
+                        return;
+                    }
+                }
+            }
+        }
+
+        override public void RoundStart()
+        {
+            base.RoundStart();
+            AddPoints(0);
         }
     }
 }

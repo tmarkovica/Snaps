@@ -325,7 +325,6 @@ namespace Šnaps
             this.pictureBox6.Size = new System.Drawing.Size(128, 213);
             this.pictureBox6.TabIndex = 9;
             this.pictureBox6.TabStop = false;
-            this.pictureBox6.MouseDoubleClick += new System.Windows.Forms.MouseEventHandler(this.pictureBox10_MouseDoubleClick);
             // 
             // pictureBox7
             // 
@@ -336,7 +335,6 @@ namespace Šnaps
             this.pictureBox7.Size = new System.Drawing.Size(128, 213);
             this.pictureBox7.TabIndex = 8;
             this.pictureBox7.TabStop = false;
-            this.pictureBox7.MouseDoubleClick += new System.Windows.Forms.MouseEventHandler(this.pictureBox10_MouseDoubleClick);
             // 
             // pictureBox8
             // 
@@ -347,7 +345,6 @@ namespace Šnaps
             this.pictureBox8.Size = new System.Drawing.Size(128, 213);
             this.pictureBox8.TabIndex = 7;
             this.pictureBox8.TabStop = false;
-            this.pictureBox8.MouseDoubleClick += new System.Windows.Forms.MouseEventHandler(this.pictureBox10_MouseDoubleClick);
             // 
             // pictureBox9
             // 
@@ -358,7 +355,6 @@ namespace Šnaps
             this.pictureBox9.Size = new System.Drawing.Size(128, 213);
             this.pictureBox9.TabIndex = 6;
             this.pictureBox9.TabStop = false;
-            this.pictureBox9.MouseDoubleClick += new System.Windows.Forms.MouseEventHandler(this.pictureBox10_MouseDoubleClick);
             // 
             // pictureBox10
             // 
@@ -369,7 +365,6 @@ namespace Šnaps
             this.pictureBox10.Size = new System.Drawing.Size(128, 213);
             this.pictureBox10.TabIndex = 5;
             this.pictureBox10.TabStop = false;
-            this.pictureBox10.MouseDoubleClick += new System.Windows.Forms.MouseEventHandler(this.pictureBox10_MouseDoubleClick);
             // 
             // menuStrip1
             // 

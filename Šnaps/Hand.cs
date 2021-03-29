@@ -62,20 +62,6 @@ namespace Šnaps
             }
         }
 
-        /*
-        public void ClearHand()
-        {
-            Console.WriteLine("-----------");
-            foreach (CardHolder holder in holders)
-            {
-                holder.ClearHolder();
-                holder.SetHolderVisible(true);
-                Console.WriteLine(holder.GetHolderStats());
-            }
-            Console.WriteLine("-----------");
-        }
-         * */
-
         public void ResetHand()
         {
             foreach (CardHolder holder in holders)
@@ -92,6 +78,21 @@ namespace Šnaps
                     if (String.Equals(holder.GetCardColor(), AdutColor.GetColor()))
                         return holder;
             return null;
+        }
+
+        public bool CanCall(Card card)
+        {
+            int otherCardForCall = 7 - card.GetCardValue();
+
+            foreach (CardHolder holder in this.holders)
+            {
+                if (holder.GetCard() != null)
+                    if (GameLogic.AreCardsSameColor(card, holder.GetCard()))
+                        if (holder.GetCardValue() == otherCardForCall)
+                            return true;
+            }
+
+            return false;
         }
     }
 }

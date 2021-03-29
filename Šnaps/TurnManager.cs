@@ -84,26 +84,17 @@ namespace Šnaps
             if (this.throwCounter > 5) // when you run out of cards to draw
                 this.referee.CloseGame();
 
-            //this.referee.StartingPlayerIndex = this.currentPlayerIndex;
-
-            //PlayersDraw();
 
             if (this.turnCounter <= 10)
                 this.iterator.StartingPlayer.YourTurnToPLayFirst(labelTurn);
-                //this.participants[this.currentPlayerIndex].YourTurnToPLay(labelTurn);
         }
 
         public void NewRound()
         {
             this.throwCounter = 0; // ovisno o pobjedniku
             this.turnCounter = 0;
-            /*
-            if (this.throwCounter == 0)
-                this.participants.Referee.GameStarts();*/ // ako bude potrebno
 
             this.referee.GameClosed = false;
-
-            //ResetPlayersHands();
 
 
             Console.WriteLine("-------------------------------------------------------------------------------");
@@ -126,8 +117,6 @@ namespace Šnaps
             }
             else
             {
-                //NewRound();
-
                 observer.Update_RoundEnded();
             }    
         }

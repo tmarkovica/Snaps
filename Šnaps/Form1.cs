@@ -165,13 +165,5 @@ namespace Šnaps
         {
             this.player.CloseGame(); Console.WriteLine("CloseGameButtonClick()");
         }
-
-        private void pictureBox10_MouseDoubleClick(object sender, MouseEventArgs e) // samo za testiranje
-        {
-            this.oponent.PlayCard(sender as PictureBox);
-        }
-
-
-        // napraviti interface za: CloseGame, PlayCard, ExchangeAdut, EnoughPoints
     }
 }

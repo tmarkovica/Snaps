@@ -75,7 +75,7 @@
     <Compile Include="IStorageable.cs" />
     <Compile Include="IPlayerMechanics.cs" />
     <Compile Include="Iterator.cs" />
-    <Compile Include="ITurnStartingPlayer.cs" />
+    <Compile Include="IRoundStart.cs" />
     <Compile Include="ITableObservable.cs" />
     <Compile Include="ITableObserver.cs" />
     <Compile Include="NewFolder1\ClosedGameLogic.cs" />

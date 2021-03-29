@@ -24,13 +24,13 @@ namespace Šnaps
             
             this.throwingFirst = true;
 
-            // obrisati
-            Card card = this.oponentAI.StartingCard();
-            Console.WriteLine("+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ Oponents plays: " + card.GetCardImageName());
-            base.PlayCard(card);
-            //
+            EnoughPoints();
 
-            //base.PlayCard(this.oponentAI.StartingCard());
+            Card tempCard = this.oponentAI.StartingCard();
+
+            Call(tempCard);
+
+            base.PlayCard(tempCard);
         }
 
         override public void UpdateAboutOponentsCard(Card card)
@@ -41,17 +41,6 @@ namespace Šnaps
             throwingFirst = false;
         }
 
-        public Card GetPlayedCard(PictureBox sender) // samo za testiranje
-        {
-            return GetHand().TakeCardFrom(sender);
-        }
-
-        public void PlayCard(PictureBox sender) // samo za testiranje
-        {
-            base.PlayCard(GetPlayedCard(sender));
-        }
-
-        //---* ovo je samo za testiranje brisati posle
         private Label labelScore;
 
         public void SetScoreLabel(Label label)
@@ -64,6 +53,30 @@ namespace Šnaps
             base.AddPoints(points);
             this.labelScore.Text = base.Score.ToString();
         }
-        //---*
+
+        override public void EnoughPoints()
+        {
+            if (throwingFirst == true)
+                if (base.Score >= 66)
+                {
+                    MessageBox.Show("Oponent won the round!");
+                    base.EnoughPoints();
+                }
+        }
+
+        public override void Call(Card card)
+        {
+            if (card.GetCardValue() == 3 || card.GetCardValue() == 4)
+            {
+                if (GetHand().CanCall(card))
+                {
+                    DialogResult dialogResult = MessageBox.Show("", "Protivnik ima zvanje");
+                    if (card.GetCardColor() == AdutColor.GetColor())
+                        AddPoints(40);
+                    else
+                        AddPoints(20);
+                }
+            }
+        }
     }
 }

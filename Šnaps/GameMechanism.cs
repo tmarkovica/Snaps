@@ -46,9 +46,9 @@ namespace Šnaps
 
 
         // Collegues
-        List<ITurnStartingPlayer> players = new List<ITurnStartingPlayer>();
+        List<IRoundStart> players = new List<IRoundStart>();
 
-        public void AddPlayer(ITurnStartingPlayer player) { }// this.players.Add(player); }
+        public void AddPlayer(IRoundStart player) { this.players.Add(player); }
 
         
         private void ResetPlayerHands()
@@ -63,6 +63,9 @@ namespace Šnaps
 
             this.DealCards();
             this.gameClosed = false;
+
+            foreach (IRoundStart player in players)
+                player.RoundStart();
 
             this.turnManager.NewRound();
         }

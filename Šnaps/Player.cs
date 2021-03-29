@@ -7,7 +7,7 @@ using System.Windows.Forms;
 
 namespace Šnaps
 {
-    class Player : ITableObserver
+    class Player : ITableObserver, IRoundStart
     {
         IPlayerMechanics gameMechanism;
 
@@ -18,7 +18,7 @@ namespace Šnaps
         public Player(Hand hand) 
         {
             this.hand = hand;
-            this.Score = 60;
+            this.Score = 0;
         }
 
         public void ExplainGameMechanics(IPlayerMechanics mechanics) { this.gameMechanism = mechanics; }
@@ -86,6 +86,13 @@ namespace Šnaps
         virtual public void CloseGame()
         {
             this.gameMechanism.CloseGame();
+        }
+
+        virtual public void Call(Card card) {}
+
+        virtual public void RoundStart()
+        {
+            this.Score = 0;
         }
     }
 }

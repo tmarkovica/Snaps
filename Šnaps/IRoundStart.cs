@@ -6,8 +6,8 @@ using System.Threading.Tasks;
 
 namespace Šnaps
 {
-    interface ITurnStartingPlayer
+    interface IRoundStart
     {
-        void YourTurnToPLay();
+        void RoundStart();
     }
 }
